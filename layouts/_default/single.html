@@ -1,0 +1,134 @@
+{{ define "main" }}
+<div class="articleContainer">
+    <div class="article" data-id="{{ .File.UniqueID}}">
+        <header class="article--header">
+            <h2 class="article--headline">{{ .Title }}</h2>
+            
+            <div class="article--meta">
+                <!-- 文章发布日期 -->
+                <time datetime='{{.Date.Format "2006-01-02 15:04:01" }}' class="humane--time">
+                    📝 发布于 {{ .Date.Format "2006-01-02 15:04" }}
+                </time>
+                
+                {{ if .Params.categories }}
+                <span class="sep">|</span>
+                {{ range (.GetTerms "categories") }}
+                <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+                {{ end }}
+                {{ end }}
+                
+                {{ if .Site.Params.post_view }}
+                <span class="sep">|</span>
+                <span class="article--views">👁️ 阅读量 <span class="count">0</span></span>
+                {{ end }}
+            </div>
+
+            <!-- 最后更新时间（SEO用） -->
+            {{ with .Lastmod }}
+            <meta property="article:modified_time" content="{{ .Format "2006-01-02T15:04:05-07:00" }}" />
+            {{ end }}
+        </header>
+
+        <!-- 内容时效性提示 -->
+        {{ $daysSinceUpdate := div (now.Sub .Lastmod).Hours 24 | math.Round }}
+        {{ $recentThreshold := .Site.Params.contentFreshness.recentThreshold | default 180 }}
+        {{ $expiryThreshold := .Site.Params.contentFreshness.expiryThreshold | default 365 }}
+
+        {{ if lt $daysSinceUpdate $recentThreshold }}
+            <div class="alert alert-info" role="alert">
+                 内容保持更新！最后修订于 <strong>{{ .Lastmod.Format "2006-01-02" }}</strong>
+            </div>
+        {{ else if lt $daysSinceUpdate $expiryThreshold }}
+            <div class="alert alert-warning" role="alert">
+                 内容略显陈旧！最后更新于 <strong>{{ .Lastmod.Format "2006-01-02" }}</strong>（{{ $daysSinceUpdate }} 天前）
+                
+            </div>
+        {{ else }}
+            <div class="alert alert-danger" role="alert">
+                 内容已过期！最后更新于 <strong>{{ .Lastmod.Format "2006-01-02" }}</strong>（{{ $daysSinceUpdate }} 天前）
+                
+            </div>
+        {{ end }}
+
+        <!-- 多语言版本提示 -->
+        {{ if .IsTranslated }}
+        <div class="translatedCard">
+            <h4> 其他语言版本</h4>
+            <ul>
+                {{ range .Translations }}
+                <li>
+                    <a href="{{ .Permalink }}">{{ .Lang | upper }}: {{ .Title }}</a>
+                </li>
+                {{ end }}
+            </ul>
+        </div>
+        {{ end }}
+
+        <!-- 目录 -->
+        {{- $TOCEnabled := or .Params.toc (and .Site.Params.toc (ne .Params.toc false)) -}}
+        {{- $hasTOC := gt (len .TableOfContents) 32 -}}
+        {{ if and $TOCEnabled $hasTOC -}}
+        <details class="toc">
+            <summary class="toc-title"> 目录</summary>
+            {{ .TableOfContents }}
+        </details>
+        {{- end }}
+
+        <!-- 正文内容 -->
+        <div class="article--body grap">
+            {{ .Content }}
+        </div>
+
+        <!-- 点赞功能 
+        {{ if .Site.Params.post_like }}
+        <div class="post--single__action">
+            <button class="button--like like-btn" aria-label="点赞">
+                <svg class="icon--active" viewBox="0 0 1024 1024" width="32" height="32">
+                    <path d="M780.8..."></path>
+                </svg>
+                <svg class="icon--default" viewBox="0 0 1024 1024" width="32" height="32">
+                    <path d="M332.8..."></path>
+                </svg>
+                <span class="count"></span> 👍
+            </button>
+        </div>
+        {{ end }} -->
+
+        <!-- 标签 -->
+        <div class="article--tags u-paddingTop20">
+            {{ range (.GetTerms "tags") }}
+            <a href="{{ .RelPermalink }}" class="artile--tag">
+                <span>#</span>{{ .LinkTitle }}
+            </a>
+            {{ end }}
+        </div>
+
+        <!-- 版权声明 -->
+        {{ if .Params.cc }}
+        <div class="article--copyright">
+            <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" rel="noopener follow" target="_blank">
+                © 本文采用 CC BY-NC-ND 4.0 许可
+            </a>
+            <!-- 版权图标保留 -->
+            <svg width="21" height="21"><path...></svg>
+            <svg width="21" height="21"><path...></svg>
+            <svg width="21" height="21"><path...></svg>
+        </div>
+        {{ end }}
+
+        <!-- 相关文章 -->
+        {{ partial "related.html" . }}
+
+        <!-- 评论系统 -->
+        <div class="comments-section">
+            <input type="checkbox" id="comments-toggle" class="comments-toggle" />
+            <label for="comments-toggle" class="comments-button">
+                💬 点击展开评论{{ .Site.Params.artalk.commentCount }}
+            </label>
+            <div id="comments" class="comments-hidden">
+                {{- partial "comment/artalk" . -}}
+            </div>
+        </div>
+    </div>
+</div>
+{{ end }}

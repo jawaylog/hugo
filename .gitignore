@@ -1,0 +1,20 @@
+# 忽略 articles.json 文件
+/data/rss/articles.json
+
+/public/
+/resources/
+/hugo_stats.json
+/node_modules/
+
+# 永久锁定
+bulk-update.sh
+
+# 开发工具配置
+assets/jsconfig.json
+
+
+/update.sh
+
+
+# 忽略包含敏感数据的文件
+static/memos/js/twikoo.min.js

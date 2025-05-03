@@ -1,0 +1,69 @@
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // 1. 修改API参数获取2条
+  const memoAPI = "{{ .Site.Params.memosAPI }}&limit=2"; // 获取两条
+  const memoContainer = document.getElementById('memo-list');
+
+  // 2. 动态更新函数
+  const updateMemo = () => {
+    fetch(memoAPI + '&t=' + Date.now())
+      .then(res => res.json())
+      .then(data => {
+        if (data.length > 0) {
+          // 3. 清空容器并插入所有内容（最多2条）
+          memoContainer.innerHTML = data.map(memo => `
+            <article class="block--item block--item__status">
+              <div class="status--icon">
+                <svg viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9.563 8.469l-0.813-1.25c-5.625 3.781-8.75 8.375-8.75 12.156 0 3.656 2.688 5.375 4.969 5.375 2.875 0 4.906-2.438 4.906-5 0-2.156-1.375-4-3.219-4.688-0.531-0.188-1.031-0.344-1.031-1.25 0-1.156 0.844-2.875 3.938-5.344zM21.969 8.469l-0.813-1.25c-5.563 3.781-8.75 8.375-8.75 12.156 0 3.656 2.75 5.375 5.031 5.375 2.906 0 4.969-2.438 4.969-5 0-2.156-1.406-4-3.313-4.688-0.531-0.188-1-0.344-1-1.25 0-1.156 0.875-2.875 3.875-5.344z"></path>
+                </svg>
+              </div>
+              <div class="block--addon">
+                <div class="meta">
+                  <div class="block--snippet">${memo.content}</div>
+                  <div class="block--meta">
+                    <time class="real-time">${calcTime(memo.createdTs)}</time>
+                    <span class="sep"></span>动态
+                    <a href="https://m.xieha.cn/m/${memo.id}" class="status--link">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 12 12">
+                        <path fill="#757575" d="M.646 10.646a.5.5 0 0 0 .708.708zM11 1h.5a.5.5 0 0 0-.5-.5zm-.5 7a.5.5 0 0 0 1 0zM4 .5a.5.5 0 0 0 0 1zM1.354 11.354l10-10-.708-.708-10 10zM10.5 1v7h1V1zM4 1.5h7v-1H4z"></path>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          `).join(''); // 用 map+join 拼接多条
+        }
+      })
+      .catch(() => {
+        memoContainer.innerHTML = '<p class="error">动态加载失败</p>';
+      });
+  };
+
+  // 4. 相对时间计算函数（保持不变）
+  const calcTime = (timestamp) => {
+    const diff = Date.now() - timestamp * 1000;
+    const units = [
+      { unit: '年', ms: 31536000000 },
+      { unit: '个月', ms: 2628000000 },
+      { unit: '天', ms: 86400000 },
+      { unit: '小时', ms: 3600000 },
+      { unit: '分钟', ms: 60000 }
+    ];
+    for (const { unit, ms } of units) {
+      if (diff >= ms) {
+        return `${Math.floor(diff/ms)}${unit}前`;
+      }
+    }
+    return '刚刚';
+  };
+
+  // 5. 初始加载 + 每10分钟更新
+  updateMemo();
+  setInterval(updateMemo, 600000); // 10分钟更新
+});
+</script>
+
+<!-- 容器保持不变 -->
+<div class="memos-container" id="memo-list"></div>

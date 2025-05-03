@@ -1,0 +1,43 @@
+{{ define "main" }}
+<div class="articleContainer">
+    <header class="archive--header">
+        <h4 class="welog">
+            <p>在博客的广袤天地中，友情链接确实如同开启不同奇妙世界的钥匙。</br>
+            每个链接背后都可能隐藏着一个独特的故事、一种别样的视角或一份深邃的思考。</p>
+        </h4>
+    </header>
+    
+    {{ $friendlinks := .Site.Data.links.friendlinks.friendlinks }}
+    {{ $categories := slice }}
+    {{ range $friendlinks }}
+        {{ $categories = $categories | append .category }}
+    {{ end }}
+    {{ $categories = $categories | uniq }}
+
+    {{ range $categories }}
+        <div class="category-section">
+            <h2 class="category-title">{{ . }}</h2>
+            <div class="container">
+                {{ range where $friendlinks "category" . }}
+                    <div class="link-item">
+                        <img src="{{ .pre }}" alt="{{ .name }}" class="link-img">
+                        <div class="link-content">
+                            <a href="{{ .url }}" target="_blank" rel="noopener noreferrer">
+                                <h3>{{ .name }}</h3>
+                            </a>
+                            <div class="link-description">{{ .description }}</div>
+                        </div>
+                    </div>
+                {{ end }}
+            </div>
+        </div>
+    {{ end }}
+
+    <!-- 评论模块 -->
+    <input type="checkbox" id="comments-toggle" class="comments-toggle" />
+    <label for="comments-toggle" class="comments-button"> 评论一下...</label>
+    <div id="comments" class="comments-hidden">
+        {{- partial "comment/artalk" . -}}
+    </div>
+</div>
+{{ end }}

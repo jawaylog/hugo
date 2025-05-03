@@ -1,0 +1,187 @@
+.block {
+    &--list {
+        padding-top: 25px;
+    }
+
+    &--snippet {
+        font-size: 15px;
+        line-height: 1.6;
+        color: var(--hera-text-gray);
+        max-height: 4.8em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
+
+    &--title {
+        margin: 0 0 10px;
+        line-height: 1.2;
+        font-size: 22px;
+        font-weight: 900;
+        &:hover {
+            color: var(--hera-hover-color);
+        }
+    }
+
+    &--cover {
+        flex: 0 0 auto;
+        margin-left: 15px;
+        width: var(--hera-thumbnail-width);
+        img {
+            width: var(--hera-thumbnail-width);
+            height: var(--hera-thumbnail-height);
+            border-radius: 4px;
+            object-fit: cover;
+        }
+    }
+
+    &--addon {
+        display: flex;
+        align-items: flex-start;
+
+        .meta {
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    &--meta {
+        margin: 0;
+        margin-top: 5px;
+        display: flex;
+        font-size: var(--hera-font-size-smallest);
+        color: var(--hera-text-gray-lightest);
+        a {
+            &:hover {
+                text-decoration: underline;
+                color: var(--hera-text-color);
+            }
+        }
+        .status--link {
+            margin-left: auto;
+            &:hover {
+                svg {
+                    fill: var(--hera-hover-color);
+                }
+            }
+        }
+    }
+
+    &--item {
+        padding: 25px 0;
+        position: relative;
+
+        &__status {
+            background-color: var(--hera-background-gray);
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+    
+        &__text {
+            .block--title {
+                margin-bottom: 5px;
+            }
+        }
+    }
+
+
+
+&--mobile {
+        padding: 25px 10px;
+        position: relative;
+
+        &__status {
+            background-color: var(--hera-background-darkgray);
+            border-radius: 12px;  // 从friends-post取的值
+            padding: 18px;
+            margin: 15px 0;
+        }
+    
+        &__text {
+            .block--title {
+                margin-bottom: 5px;
+                font-size: 18px; // 从friends-title取的值
+                &:hover {
+                    color: var(--hera-main-color); // 从friends-title:hover取的值
+                }
+            }
+        }
+    }
+
+    // 新增内容区块样式
+    &--content-preview {
+        display: flex;
+        gap: 12px;
+        margin: 8px 0 12px;
+        
+        &__thumbnail {
+            flex: 0 0 100px;
+            height: 75px;
+            border-radius: 6px;
+            overflow: hidden;
+            background: var(--hera-background-gray-lightest);
+            position: relative;
+            
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+        }
+        
+        &__text {
+            font-size: var(--hera-font-size-smallest);
+            color: var(--hera-text-light);
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.8;
+            max-height: calc(1.8em * 3);
+            word-break: break-word;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .block {
+        &--item {
+            padding: 12px 0;
+
+            &__status {
+                padding: 12px;
+            }
+        }
+
+        &--title {
+            font-size: 18px;
+        }
+
+        &--snippet {
+            font-size: 15px;
+        }
+       &--meta {
+        
+        font-size: 15px;
+
+        }
+
+
+        &--cover {
+            margin-left: 10px;
+            --hera-thumbnail-width: 72px;
+            img {
+                --hera-thumbnail-height: 72px;
+            }
+        }
+    }
+}

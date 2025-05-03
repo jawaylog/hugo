@@ -1,0 +1,14 @@
+<!-- 导航菜单 -->
+<nav class="site--nav">
+    <button class="close--icon">×</button>
+    <ul class="widget--links">
+       {{ range $.Site.Menus.main }}
+		{{ if not .HasChildren }}
+		<li class="menu-item"><a href="{{ .URL }}">{{ .Name }}</a></li>
+		{{ end }}
+		{{ end }}
+    </ul>
+</nav>
+
+<!-- 遮罩层 -->
+<div class="mask"></div>

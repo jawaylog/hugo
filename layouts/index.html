@@ -1,0 +1,56 @@
+{{ define "main" }}
+<div class="post--list">
+  <div class="block--list">
+    {{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
+    {{ $filteredPages := where $pages "Type" "in" (slice "posts" "memo") }}
+    {{ $paginator := .Paginate ($filteredPages) }}
+    
+    {{ if eq .Paginator.PageNumber 1 }}
+      <!-- 1. 置顶文章（仅post类型） -->
+      {{ $featured := where (where $pages "Type" "posts") "Params.featured" true }}
+      {{ range $featured }}
+        <div class="featured-post">
+          {{ partial "posts.html" . }}
+        </div>
+      {{ end }}
+
+      <!-- 2. 微言模块 -->
+      <section class="weiyan-container">
+        {{ partial "weiyan.html" . }}
+      </section>
+    {{ end }}
+
+    <!-- 3. 常规文章列表（过滤掉已置顶的文章） -->
+    {{ $regularPages := where $paginator.Pages "Params.featured" "!=" true }}
+    <div class="desktop-only">   
+      {{ range $regularPages }}
+        {{ if eq .Type "memo" }}
+          {{ partial "memo.html" . }}
+        {{ else }}
+          {{ partial "posts.html" . }}
+        {{ end }}
+      {{ end }}
+    </div>
+
+    <div class="mobile-only">  
+      {{ range $regularPages }}
+        {{ if eq .Type "memo" }}
+          {{ partial "memo.html" . }} 
+        {{ else }}
+          {{ partial "mobile.html" . }}
+        {{ end }}
+      {{ end }}
+    </div>
+  </div>
+  
+  <nav class="navigation">
+    <div class="nav-links">
+      {{ range $paginator.Pagers }}
+        <a class="page-numbers{{ if eq . $paginator }} current{{ end }}" href="{{ .URL }}">{{ .PageNumber }}</a>
+      {{ end }}
+    </div>
+  </nav>
+
+  {{ $js := resources.Get "js/memo.js" | minify | fingerprint }}
+  <script defer src="{{ $js.RelPermalink }}"></script>
+{{ end }}

@@ -1,0 +1,26 @@
+<!-- 移动端和桌面端共用部分模块 -->
+{{ $allPosts := where .Site.RegularPages "Section" "posts" }}
+{{ $nonMemoPosts := slice }}
+{{ range $allPosts }}
+  {{ if not (in .Params.categories "Memo") }}
+    {{ $nonMemoPosts = $nonMemoPosts | append . }}
+  {{ end }}
+{{ end }}
+
+<h2 class="archive--title__year">{{ .Title }}</h2>
+<h4 class="archive-title">共计 {{ len $nonMemoPosts }} 篇日志</h4>
+<!-- 其余部分保持不变 -->
+<div class="category-list">
+    <ul>
+        {{- range $taxonomy := .Site.Taxonomies.categories -}}
+            {{ if ne .Page.Title "Memo" }} <!-- 过滤掉分类名称为 "memo" 的分类 -->
+                <li>
+                    <a href="/categories/{{ $taxonomy.Page.Title | urlize }}">
+                        <span>#{{ $taxonomy.Page.Title }}</span>
+                        <span>({{ $taxonomy.Count }})</span>
+                    </a>
+                </li>
+            {{ end }}
+        {{- end -}}
+    </ul>
+</div>
