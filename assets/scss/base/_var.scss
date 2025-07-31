@@ -37,6 +37,14 @@
     --hera-font-size-smallest: 15px;
 }
 
+/* 动态调整（适用于1920px以上屏幕） */
+  @media (min-width: 1920px) {
+    --max-content-width: min(907px, 60vw);
+    --max-article-width: min(993px, 65vw);
+  }
+
+
+
 @media (prefers-color-scheme: dark) {
     .auto {
         --hera-main-color: rgba(253, 186, 116, 1);

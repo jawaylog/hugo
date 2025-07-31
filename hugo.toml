@@ -1,4 +1,6 @@
-baseURL = ''
+baseURL = '/'  # 使用相对根路径
+relativeURLs = true  # 启用相对URL
+canonifyURLs = false  # 禁用绝对URL转换
 languageCode = 'zh-cn'
 defaultContentLanguage = 'zh-cn'
 title = '微影随行'
@@ -22,7 +24,6 @@ dataDir = "data"
   description = 'A simple and fast blog framework written in Go.'
   toc = true
   mainSections = ['posts','memo']
-  showMobile = true
   subtitle = '用文字与照片记录生活点滴'
   memosAPI = "https://m.xieha.cn/api/v1/memo?creatorId=1&rowStatus=NORMAL&limit=1"
   showAuthor = true
@@ -33,6 +34,8 @@ dataDir = "data"
  [build]
   enableGitInfo = false  # 已正确设置
   noTimes = true         # 禁止读取文件修改时间
+  writeStats = true  # 生成资源映射
+  noJSConfigInAssets = true  # 禁用JS配置
 
 [frontmatter]
  lastmod = ["lastmod", "modified"]  # 仅使用手动设置

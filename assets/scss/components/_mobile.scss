@@ -1,5 +1,4 @@
-
-/* 朋友圈容器 - 使用主题变量 */
+/* 朋友圈容器 - 优化版 */
 .friends-container {
   max-width: 100%;
   margin: 0 auto;
@@ -7,102 +6,141 @@
   background-color: var(--hera-background-white);
 }
 
-/* 单条朋友圈卡片 - 使用主题变量 */
-.friends-post {
-  background: var(--hera-background-white);
-  border-radius: 12px;
-  padding: 14px;
-  margin-bottom: 14px;
-  box-shadow: 0 2px 12px var(--hera-border-color-light);
-  border: 1px solid var(--hera-border-color);
+/* 文章间隔线 */
+.friends-container > .block--addon {
+  position: relative;
+  padding: 16px 0;
+  margin: 0;
 }
 
-/* 文章标题 */
+.friends-container > .block--addon:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--hera-border-color);
+  opacity: 0.2;
+}
+
+/* 文章标题 - 放大并增加间距 */
 .friends-title {
   font-size: 18px;
-  margin: 10px 0;
+  margin: 0 0 12px 0;
   font-weight: 600;
   color: var(--hera-text-color);
-  line-height: 1.4;
+  line-height: 1.5;
+  display: block;
 }
 
 .friends-title:hover {
   color: var(--hera-main-color);
 }
 
-/* 内容区域 */
+/* 内容区域 - 图片在右侧布局 */
 .friends-body {
   display: flex;
-  gap: 12px;
-  margin: 8px 0 12px;
+  flex-direction: right; /* 图片右置关键代码 */
+  gap: 15px;
+  margin: 0 0 14px 0;
 }
 
 .friends-thumbnail {
-  flex: 0 0 100px;
-  height: 75px;
-  border-radius: 6px;
+  flex: 0 0 120px;
+  height: 80px;
+  border-radius: 4px;
   overflow: hidden;
   background: var(--hera-background-gray-lightest);
-  position: relative;
 }
 
 .friends-thumbnail img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
+  transition: transform 0.3s ease;
 }
 
+.friends-thumbnail:hover img {
+  transform: scale(1.03);
+}
+
+/* 正文内容 - 放大字号和行高 */
 .friends-content {
-  font-size: var(--hera-font-size-smallest);
+  flex: 1;
+  font-size: 15px;
   color: var(--hera-text-light);
+  line-height: 1.7;
+  letter-spacing: 0.02em;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 1.8;
-  max-height: calc(1.8em * 3);
-  word-break: break-word;
 }
 
-/* 底部操作栏 */
-.friends-actions {
+/* 底部元信息 - 放大并增加间距 */
+.block--addon .block--addon {
   display: flex;
-  justify-content: flex-start;
+  flex-wrap: wrap;
   align-items: center;
-  padding-top: 12px;
-  margin-top: 12px;
-  font-size: var(--hera-font-size-smallest);
+  font-size: 13px;
   color: var(--hera-text-gray-lightest);
-  border-top: 1px solid var(--hera-border-color);
-  gap: 2px; /* 新增：控制子元素之间的统一间距 */
+  gap: 8px;
 }
 
 .author-info {
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 4px;
 }
 
-/* 夜间模式特定调整 */
+.icon {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+.camera-icon {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+}
+
+.sep::before {
+  content: '·';
+  margin: 0 4px;
+  color: var(--hera-text-gray-lightest);
+}
+
+/* 置顶标记 */
+.top-badge {
+  position: absolute;
+  top: 16px;
+  right: 0;
+  background: var(--hera-main-color);
+  color: white;
+  padding: 3px 8px;
+  font-size: 12px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  z-index: 1;
+}
+
+.top-badge svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* 暗色模式适配 */
 @media (prefers-color-scheme: dark) {
-  .friends-post {
-    background: var(--hera-background-gray-lightest);
+  .friends-content {
+    color: var(--hera-text-light-dark);
   }
   
-  .friends-thumbnail {
-    background: rgba(255, 255, 255, 0.05);
+  .friends-container > .block--addon:not(:last-child)::after {
+    opacity: 0.1;
   }
-}
-
-/* 手动切换的夜间模式类 */
-.dark .friends-post {
-  background: var(--hera-background-gray-lightest);
-}
-
-.dark .friends-thumbnail {
-  background: rgba(255, 255, 255, 0.05);
 }

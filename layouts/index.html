@@ -3,8 +3,14 @@
   <div class="block--list">
     {{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
     {{ $filteredPages := where $pages "Type" "in" (slice "posts" "memo") }}
+    
+    <!-- 首先创建分页器 -->
     {{ $paginator := .Paginate ($filteredPages) }}
     
+    <!-- 然后按最后修改日期排序 -->
+    {{ $sortedPages := sort $filteredPages "Lastmod" "desc" }}
+    {{ $latestUpdated := index $sortedPages 0 }}
+
     {{ if eq .Paginator.PageNumber 1 }}
       <!-- 1. 置顶文章（仅post类型） -->
       {{ $featured := where (where $pages "Type" "posts") "Params.featured" true }}
@@ -14,14 +20,25 @@
         </div>
       {{ end }}
 
-      <!-- 2. 微言模块 -->
+      <!-- 2. 显示最新更新的一篇文章 -->
+      {{ if not (eq $latestUpdated.Lastmod $latestUpdated.Date) }}
+        <div class="updated-post">
+  {{ partial "posts.html" $latestUpdated }}
+</div>
+      {{ end }}
+
+      <!-- 3. 微言模块 -->
       <section class="weiyan-container">
         {{ partial "weiyan.html" . }}
       </section>
     {{ end }}
 
-    <!-- 3. 常规文章列表（过滤掉已置顶的文章） -->
+    <!-- 4. 常规文章列表（排除已置顶和最新更新的文章） -->
     {{ $regularPages := where $paginator.Pages "Params.featured" "!=" true }}
+    {{ if eq .Paginator.PageNumber 1 }}
+      {{ $regularPages = where $regularPages "Title" "!=" $latestUpdated.Title }}
+    {{ end }}
+    
     <div class="desktop-only">   
       {{ range $regularPages }}
         {{ if eq .Type "memo" }}

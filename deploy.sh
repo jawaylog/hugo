@@ -10,8 +10,8 @@ rm -rf public
 echo "➤ 2. 使用Hera主题构建网站..."
 hugo -t hera --minify
 
- #echo "➤ 3. 进入public目录..."
- #cd public
+ echo "➤ 3. 进入public目录..."
+ cd public
 
 echo "➤ 4. 初始化Git仓库..."
 git init

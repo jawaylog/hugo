@@ -1,0 +1,108 @@
+
+/* 朋友圈容器 - 使用主题变量 */
+.friends-container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  background-color: var(--hera-background-white);
+}
+
+/* 单条朋友圈卡片 - 使用主题变量 */
+.friends-post {
+  background: var(--hera-background-white);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 12px var(--hera-border-color-light);
+  border: 1px solid var(--hera-border-color);
+}
+
+/* 文章标题 */
+.friends-title {
+  font-size: 18px;
+  margin: 10px 0;
+  font-weight: 600;
+  color: var(--hera-text-color);
+  line-height: 1.4;
+}
+
+.friends-title:hover {
+  color: var(--hera-main-color);
+}
+
+/* 内容区域 */
+.friends-body {
+  display: flex;
+  gap: 12px;
+  margin: 8px 0 12px;
+}
+
+.friends-thumbnail {
+  flex: 0 0 100px;
+  height: 75px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--hera-background-gray-lightest);
+  position: relative;
+}
+
+.friends-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.friends-content {
+  font-size: var(--hera-font-size-smallest);
+  color: var(--hera-text-light);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.8;
+  max-height: calc(1.8em * 3);
+  word-break: break-word;
+}
+
+/* 底部操作栏 */
+.friends-actions {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 12px;
+  margin-top: 12px;
+  font-size: var(--hera-font-size-smallest);
+  color: var(--hera-text-gray-lightest);
+  border-top: 1px solid var(--hera-border-color);
+  gap: 2px; /* 新增：控制子元素之间的统一间距 */
+}
+
+.author-info {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* 夜间模式特定调整 */
+@media (prefers-color-scheme: dark) {
+  .friends-post {
+    background: var(--hera-background-gray-lightest);
+  }
+  
+  .friends-thumbnail {
+    background: rgba(255, 255, 255, 0.05);
+  }
+}
+
+/* 手动切换的夜间模式类 */
+.dark .friends-post {
+  background: var(--hera-background-gray-lightest);
+}
+
+.dark .friends-thumbnail {
+  background: rgba(255, 255, 255, 0.05);
+}

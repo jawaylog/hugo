@@ -348,6 +348,31 @@ textarea {
   border-radius: 4px;
 }
 
+/* 更新文章容器 - 简化版 */
+.updated-post {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+/* 更新标签样式 - 仅保留标签 */
+.updated-post::before {
+  content: "翻新";
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #ff6b6b;
+  color: white;
+  padding: 2px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  z-index: 10;
+}
+
+/* 暗色模式适配 */
+.dark .updated-post::before {
+  background: #ff8f8f;
+}
+
 
 
 @media (max-width: 768px) {
