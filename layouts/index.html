@@ -15,14 +15,15 @@
       <!-- 1. 置顶文章（仅post类型） -->
       {{ $featured := where (where $pages "Type" "posts") "Params.featured" true }}
       {{ range $featured }}
-        <div class="featured-post">
+
+      <div class="featured-post">
           {{ partial "posts.html" . }}
         </div>
       {{ end }}
 
       <!-- 2. 显示最新更新的一篇文章 -->
-      {{ if not (eq $latestUpdated.Lastmod $latestUpdated.Date) }}
-        <div class="updated-post">
+      {{ if not (eq $latestUpdated.Lastmod $latestUpdated.Date) }}     
+    <div class="updated-post"> 
   {{ partial "posts.html" $latestUpdated }}
 </div>
       {{ end }}

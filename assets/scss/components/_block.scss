@@ -97,7 +97,7 @@
 
         &__status {
             background-color: var(--hera-background-darkgray);
-            border-radius: 12px;  // 从friends-post取的值
+            border-radius: 14px;  // 从friends-post取的值
             padding: 18px;
             margin: 15px 0;
         }
@@ -157,9 +157,12 @@
         &--item {
             padding: 12px 0;
 
-            &__status {
-                padding: 12px;
-            }
+           &__status {
+    background-color: var(--hera-background-darkgray);
+    border-radius: 14px;
+    padding: 14px;
+    margin: 8px 12px; /* 上下1px，左右5px（调整左右外边距） */
+}
         }
 
         &--title {
@@ -167,14 +170,13 @@
         }
 
         &--snippet {
-            font-size: 16px;
+            font-size: 15px;
         }
        &--meta {
         
         font-size: 13px;
 
         }
-
 
         &--cover {
             margin-left: 10px;

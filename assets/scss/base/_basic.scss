@@ -328,6 +328,7 @@ textarea {
   object-fit: cover;
 }
 
+/* 置顶文章标签 */
 .featured-post {
   position: relative;
   border-left: 3px solid #ffcc00;
@@ -345,16 +346,18 @@ textarea {
   color: white;
   padding: 2px 8px;
   font-size: 12px;
-  border-radius: 4px;
+  font-weight: 600; /* 统一字体粗细 */
+  border-radius: 6px; /* 与朋友圈图片圆角一致 */
+  z-index: 10;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* 与朋友圈缩略图阴影一致 */
 }
 
-/* 更新文章容器 - 简化版 */
+/* 翻新文章标签 */
 .updated-post {
   position: relative;
   margin-bottom: 30px;
 }
 
-/* 更新标签样式 - 仅保留标签 */
 .updated-post::before {
   content: "翻新";
   position: absolute;
@@ -364,17 +367,21 @@ textarea {
   color: white;
   padding: 2px 8px;
   font-size: 12px;
-  border-radius: 4px;
+  font-weight: 600; /* 统一字体粗细 */
+  border-radius: 6px; /* 与朋友圈图片圆角一致 */
   z-index: 10;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* 与朋友圈缩略图阴影一致 */
 }
 
 /* 暗色模式适配 */
 .dark .updated-post::before {
   background: #ff8f8f;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* 暗色模式下阴影加深 */
 }
 
-
-
+.dark .featured-post::before {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* 暗色模式下阴影加深 */
+}
 @media (max-width: 768px) {
     .notice--wrapper {
         width: 80%;
