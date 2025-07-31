@@ -1,60 +1,86 @@
-/* 朋友圈容器 - 完整版 */
+/* 朋友圈容器 */
 .friends-container {
   max-width: 100%;
   margin: 0 auto;
-  padding: 0 5px; /* 调整：左右边距从16px→5px */
-  background-color: var(--hera-background-white);
+  padding: 0 5px;
+  background-color: var(--hera-background-white, #ffffff);
 }
 
-/* 文章间隔线 */
+/* 文章容器 - 增加间距 */
 .friends-container > .block--addon {
   position: relative;
-  padding: 18px 0;
+  padding: 25px 0;  /* 增大上下间距 */
   margin: 0;
 }
 
+/* 增强版分隔线 */
 .friends-container > .block--addon:not(:last-child)::after {
   content: "";
   position: absolute;
-  bottom: 0;
-  left: 5px; /* 调整：从8px→5px */
-  right: 5px; /* 调整：从8px→5px */
-  height: 0.5px;
-  background: var(--hera-border-color);
-  opacity: 0.15;
+  bottom: 0;       /* 贴底部显示 */
+  left: 0;         /* 横跨整个宽度 */
+  right: 0;
+  height: 2px;     /* 加粗到2px */
+  background: #d0d0d0; /* 使用更深的灰色 */
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1); /* 添加轻微阴影增强立体感 */
+
+}
+
+/* 暗色模式适配 */
+@media (prefers-color-scheme: dark) {
+  .friends-container > .block--addon:not(:last-child)::after {
+    background: #555;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.3);
+  }
+}
+/* 移除最后一项的分隔线 */
+.friends-container > .block--addon:last-child {
+  border-bottom: none;
+}
+
+/* 置顶标识 */
+.top-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #ffcc00;
+  color: white;
+  padding: 2px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  z-index: 10;
 }
 
 /* 文章标题 */
 .friends-title {
-  font-size: 18px;
-  margin: 0 0 14px 5px; /* 调整：从4px→5px */
+  font-size: 17px;
+  margin: 0 0 12px 5px;
   font-weight: 600;
   color: var(--hera-text-color);
   line-height: 1.5;
   display: block;
-  letter-spacing: 0.2px;
 }
 
 .friends-title:hover {
   color: var(--hera-main-color);
 }
 
-/* 内容区域 - 图片在右侧 */
+/* 内容区域 */
 .friends-body {
   display: flex;
-  flex-direction: right;
-  gap: 16px;
-  margin: 0 5px 16px 5px; /* 调整：从0 8px 16px 4px→0 5px 16px 5px */
+  flex-direction: row;
+  gap: 12px;
+  margin: 0 5px 12px 5px;
   align-items: flex-start;
 }
 
+/* 缩略图 */
 .friends-thumbnail {
-  flex: 0 0 110px;
-  height: 78px;
+  flex: 0 0 100px;
+  height: 70px;
   border-radius: 6px;
   overflow: hidden;
   background: var(--hera-background-gray-lightest);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .friends-thumbnail img {
@@ -64,23 +90,17 @@
   transition: transform 0.25s ease;
 }
 
-.friends-thumbnail:hover img {
-  transform: scale(1.02);
-}
-
 /* 正文内容 */
 .friends-content {
   flex: 1;
-  font-size: 15px;
+  font-size: 14px;
   color: var(--hera-text-light);
-  line-height: 1.72;
-  letter-spacing: 0.3px;
+  line-height: 1.6;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding-top: 2px;
 }
 
 /* 底部元信息 */
@@ -88,17 +108,16 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  font-size: 13px;
+  font-size: 12px;
   color: var(--hera-text-gray-lightest);
-  gap: 10px;
-  margin: 0 5px; /* 调整：从4px→5px */
-  padding-top: 2px;
+  gap: 8px;
+  margin: 0 5px;
 }
 
 .author-info {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
 }
 
 .icon {
@@ -106,13 +125,6 @@
   height: 14px;
   fill: currentColor;
   opacity: 0.8;
-}
-
-.camera-icon {
-  width: 15px;
-  height: 15px;
-  stroke: currentColor;
-  stroke-width: 1.6;
 }
 
 .sep::before {
@@ -124,67 +136,24 @@
 
 /* 暗色模式适配 */
 @media (prefers-color-scheme: dark) {
-  .friends-content {
-    color: var(--hera-text-light-dark);
-    opacity: 0.9;
+  .friends-container > .block--addon {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
   }
   
-  .friends-container > .block--addon:not(:last-child)::after {
-    opacity: 0.08;
+  .friends-content {
+    color: var(--hera-text-light-dark);
   }
   
   .friends-thumbnail {
     background: rgba(255,255,255,0.03);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-  }
-  
-  .icon {
-    opacity: 0.7;
   }
 }
 
-/* 响应式调整 */
-@media (max-width: 480px) {
-  .friends-container {
-    padding: 0 5px; /* 调整：从14px→5px */
-  }
-  
-  .friends-container > .block--addon {
-    padding: 16px 0;
-  }
-  
-  .friends-title {
-    font-size: 17px;
-    margin-bottom: 13px;
-  }
-  
-  .friends-body {
-    gap: 14px;
-    margin-bottom: 15px;
-  }
-  
-  .friends-thumbnail {
-    flex: 0 0 100px;
-    height: 70px;
-  }
-  
-  .friends-content {
-    font-size: 14.5px;
-    line-height: 1.68;
-  }
-  
-  .block--addon .block--addon {
-    font-size: 12.5px;
-    gap: 8px;
-  }
-}
-
-/* 小屏幕优化 */
+/* 超小屏幕优化 */
 @media (max-width: 380px) {
   .friends-body {
     flex-direction: column-reverse;
-    gap: 12px;
-    margin: 0 5px 15px 5px; /* 统一左右边距 */
+    gap: 10px;
   }
   
   .friends-thumbnail {
