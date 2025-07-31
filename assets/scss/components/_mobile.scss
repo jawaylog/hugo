@@ -2,7 +2,7 @@
 .friends-container {
   max-width: 100%;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 5px; /* 调整：左右边距从16px→5px */
   background-color: var(--hera-background-white);
 }
 
@@ -17,8 +17,8 @@
   content: "";
   position: absolute;
   bottom: 0;
-  left: 8px;
-  right: 8px;
+  left: 5px; /* 调整：从8px→5px */
+  right: 5px; /* 调整：从8px→5px */
   height: 0.5px;
   background: var(--hera-border-color);
   opacity: 0.15;
@@ -27,7 +27,7 @@
 /* 文章标题 */
 .friends-title {
   font-size: 18px;
-  margin: 0 0 14px 4px;
+  margin: 0 0 14px 5px; /* 调整：从4px→5px */
   font-weight: 600;
   color: var(--hera-text-color);
   line-height: 1.5;
@@ -44,7 +44,7 @@
   display: flex;
   flex-direction: right;
   gap: 16px;
-  margin: 0 4px 16px 4px;
+  margin: 0 5px 16px 5px; /* 调整：从0 8px 16px 4px→0 5px 16px 5px */
   align-items: flex-start;
 }
 
@@ -91,7 +91,7 @@
   font-size: 13px;
   color: var(--hera-text-gray-lightest);
   gap: 10px;
-  margin: 0 4px;
+  margin: 0 5px; /* 调整：从4px→5px */
   padding-top: 2px;
 }
 
@@ -122,8 +122,6 @@
   opacity: 0.6;
 }
 
-
-
 /* 暗色模式适配 */
 @media (prefers-color-scheme: dark) {
   .friends-content {
@@ -148,7 +146,7 @@
 /* 响应式调整 */
 @media (max-width: 480px) {
   .friends-container {
-    padding: 0 14px;
+    padding: 0 5px; /* 调整：从14px→5px */
   }
   
   .friends-container > .block--addon {
@@ -179,13 +177,6 @@
     font-size: 12.5px;
     gap: 8px;
   }
-  
-  .top-badge {
-    top: 16px;
-    right: 10px;
-    font-size: 11px;
-    padding: 2px 8px;
-  }
 }
 
 /* 小屏幕优化 */
@@ -193,6 +184,7 @@
   .friends-body {
     flex-direction: column-reverse;
     gap: 12px;
+    margin: 0 5px 15px 5px; /* 统一左右边距 */
   }
   
   .friends-thumbnail {
