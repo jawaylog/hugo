@@ -331,10 +331,18 @@ textarea {
 /* 置顶文章标签 */
 .featured-post {
   position: relative;
-  border-left: 3px solid #ffcc00;
   padding-left: 15px;
   margin-bottom: 30px;
-  background-color: rgba(255, 204, 0, 0.05);
+  letter-spacing: 2px;
+  
+  img {
+    width: var(--hera-thumbnail-width-sm, 110px);
+    height: var(--hera-thumbnail-height-sm, 75px);
+    border-radius: 0; /* 完全直角 */
+    /* 或微圆角 */
+    border-radius: 4px; /* 固定值 */
+
+}
 }
 
 .featured-post::before {
@@ -350,6 +358,7 @@ textarea {
   border-radius: 6px; /* 与朋友圈图片圆角一致 */
   z-index: 10;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* 与朋友圈缩略图阴影一致 */
+
 }
 
 /* 翻新文章标签 */

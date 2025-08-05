@@ -1,189 +1,230 @@
 .block {
-    &--list {
-        padding-top: 25px;
-    }
+  &--list {
+    padding-top: 25px;
+  }
 
-    &--snippet {
-        font-size: 15px;
-        line-height: 1.6;
-        color: var(--hera-text-gray);
-        max-height: 4.8em;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
+  /* 修改点1：正文片段优化 */
+  &--snippet {
+    font-size: 15px;
+    line-height: 1.8; /* 调整行高 */
+    letter-spacing: 0.6px; /* 新增字间距 */
+    color: var(--hera-text-gray);
+    /* 移除 max-height: 4.8em; 修复截断问题 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    margin-bottom: 10px; /* 新增下边距 */
+  }
+
+  /* 修改点2：标题优化 */
+  &--title {
+    margin: 0 0 12px; /* 增大下边距 */
+    line-height: 1.6; /* 调整行高 */
+    letter-spacing: 0.5px; /* 新增字间距 */
+    font-size: 22px;
+    font-weight: 900;
+    &:hover {
+      color: var(--hera-hover-color);
+    }
+  }
+
+  &--cover {
+    flex: 0 0 auto;
+    margin-left: 15px;
+    width: var(--hera-thumbnail-width);
+    img {
+      width: var(--hera-thumbnail-width);
+      height: var(--hera-thumbnail-height);
+      border-radius: 4px;
+      object-fit: cover;
+    }
+  }
+
+  &--addon {
+    display: flex;
+    align-items: flex-start;
+    .meta {
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  /* 修改点3：元信息优化 */
+  &--meta {
+    margin: 8px 0 0; /* 调整边距 */
+    display: flex;
+    font-size: var(--hera-font-size-smallest);
+    line-height: 1.7; /* 新增行高 */
+    letter-spacing: 0.5px; /* 新增字间距 */
+    color: var(--hera-text-gray-lightest);
+    padding-bottom: 2px; /* 防止底部截断 */
+    a {
+      &:hover {
+        text-decoration: underline;
+        color: var(--hera-text-color);
+      }
+    }
+    .status--link {
+      margin-left: auto;
+      &:hover {
+        svg {
+          fill: var(--hera-hover-color);
+        }
+      }
+    }
+  }
+
+  &--item {
+    padding: 25px 0;
+    position: relative;
+
+    &__status {
+      background-color: var(--hera-background-gray);
+      border-radius: 10px;
+      padding: 25px;
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+  
+    &__text {
+      .block--title {
+        margin-bottom: 8px; /* 调整标题下边距 */
+      }
+    }
+  }
+
+  &--mobile {
+    padding: 20px 10px; /* 调整内边距 */
+    position: relative;
+
+    &__status {
+      background-color: var(--hera-background-darkgray);
+      border-radius: 14px;
+      padding: 18px;
+      margin: 15px 0;
+    }
+  
+    &__text {
+      .block--title {
+        margin-bottom: 8px;
+        font-size: 18px;
+        line-height: 1.7; /* 调整行高 */
+        &:hover {
+          color: var(--hera-main-color);
+        }
+      }
+    }
+  }
+
+  /* 修改点4：内容预览优化 */
+  &--content-preview {
+    display: flex;
+    gap: 12px;
+    margin: 10px 0 15px; /* 调整边距 */
+    
+    &__thumbnail {
+      flex: 0 0 100px;
+      height: 75px;
+      border-radius: 6px;
+      overflow: hidden;
+      background: var(--hera-background-gray-lightest);
+      position: relative;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    }
+    
+    &__text {
+      font-size: var(--hera-font-size-smallest);
+      color: var(--hera-text-light);
+      line-height: 1.8; /* 调整行高 */
+      letter-spacing: 0.6px; /* 新增字间距 */
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      /* 移除 max-height 限制 */
+      word-break: break-word;
+    }
+  }
+}
+
+/* 修改点5：移动端深度优化 */
+@media screen and (max-width: 768px) {
+  .block {
+    &--item {
+      padding: 15px 0; /* 调整内边距 */
+      &__status {
+        background-color: var(--hera-background-darkgray);
+        border-radius: 14px;
+        padding: 14px;
+        margin: 12px 10px; /* 调整边距 */
+      }
     }
 
     &--title {
-        margin: 0 0 10px;
-        line-height: 1.2;
-        font-size: 22px;
-        font-weight: 900;
-        &:hover {
-            color: var(--hera-hover-color);
-        }
+      font-size: 19px; /* 调整字号 */
+      line-height: 1.8; /* 增大行高 */
+      letter-spacing: 0.8px; /* 增大字间距 */
+      margin-bottom: 10px;
     }
 
-    &--cover {
-        flex: 0 0 auto;
-        margin-left: 15px;
-        width: var(--hera-thumbnail-width);
-        img {
-            width: var(--hera-thumbnail-width);
-            height: var(--hera-thumbnail-height);
-            border-radius: 4px;
-            object-fit: cover;
-        }
-    }
-
-    &--addon {
-        display: flex;
-        align-items: flex-start;
-
-        .meta {
-            flex: 1 1 auto;
-            display: flex;
-            flex-direction: column;
-        }
+    &--snippet {
+      font-size: 15px;
+      line-height: 1.9; /* 增大行高 */
+      letter-spacing: 0.6px;
+      margin-bottom: 12px;
     }
 
     &--meta {
-        margin: 0;
-        margin-top: 5px;
-        display: flex;
-        font-size: var(--hera-font-size-smallest);
-        color: var(--hera-text-gray-lightest);
-        a {
-            &:hover {
-                text-decoration: underline;
-                color: var(--hera-text-color);
-            }
-        }
-        .status--link {
-            margin-left: auto;
-            &:hover {
-                svg {
-                    fill: var(--hera-hover-color);
-                }
-            }
-        }
+      font-size: 13px;
+      line-height: 1.8; /* 增大行高 */
     }
 
-    &--item {
-        padding: 25px 0;
-        position: relative;
-
-        &__status {
-            background-color: var(--hera-background-gray);
-            border-radius: 10px;
-            padding: 25px;
-            margin-top: 15px;
-            margin-bottom: 15px;
-        }
+    &--cover {
+      margin-left: 10px;
+      --hera-thumbnail-width: 72px;
+      img {
+        --hera-thumbnail-height: 72px;
+      }
+    }
     
-        &__text {
-            .block--title {
-                margin-bottom: 5px;
-            }
-        }
-    }
-
-
-
-&--mobile {
-        padding: 25px 10px;
-        position: relative;
-
-        &__status {
-            background-color: var(--hera-background-darkgray);
-            border-radius: 14px;  // 从friends-post取的值
-            padding: 18px;
-            margin: 15px 0;
-        }
-    
-        &__text {
-            .block--title {
-                margin-bottom: 5px;
-                font-size: 18px; // 从friends-title取的值
-                &:hover {
-                    color: var(--hera-main-color); // 从friends-title:hover取的值
-                }
-            }
-        }
-    }
-
-    // 新增内容区块样式
     &--content-preview {
-        display: flex;
-        gap: 12px;
-        margin: 8px 0 12px;
-        
-        &__thumbnail {
-            flex: 0 0 100px;
-            height: 75px;
-            border-radius: 6px;
-            overflow: hidden;
-            background: var(--hera-background-gray-lightest);
-            position: relative;
-            
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                position: absolute;
-                top: 0;
-                left: 0;
-            }
-        }
-        
-        &__text {
-            font-size: var(--hera-font-size-smallest);
-            color: var(--hera-text-light);
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            line-height: 1.8;
-            max-height: calc(1.8em * 3);
-            word-break: break-word;
-        }
+      margin: 12px 0;
+      &__text {
+        line-height: 2.0; /* 增大行高 */
+      }
     }
+  }
 }
 
-@media screen and (max-width: 768px) {
-    .block {
-        &--item {
-            padding: 12px 0;
-
-           &__status {
-    background-color: var(--hera-background-darkgray);
-    border-radius: 14px;
-    padding: 14px;
-    margin: 8px 5px; /* 上下1px，左右5px（调整左右外边距） */
-}
-        }
-
-        &--title {
-            font-size: 18px;
-        }
-
-        &--snippet {
-            font-size: 15px;
-        }
-       &--meta {
-        
-        font-size: 13px;
-
-        }
-
-        &--cover {
-            margin-left: 10px;
-            --hera-thumbnail-width: 72px;
-            img {
-                --hera-thumbnail-height: 72px;
-            }
-        }
+/* 超小屏幕适配 */
+@media screen and (max-width: 480px) {
+  .block {
+    &--title {
+      font-size: 18px;
     }
+    
+    &--snippet {
+      font-size: 14px;
+    }
+    
+    &--content-preview {
+      flex-direction: column;
+      &__thumbnail {
+        width: 100%;
+        height: 120px;
+      }
+    }
+  }
 }

@@ -21,12 +21,7 @@
         </div>
       {{ end }}
 
-      <!-- 2. 显示最新更新的一篇文章 -->
-      {{ if not (eq $latestUpdated.Lastmod $latestUpdated.Date) }}     
-    <div class="updated-post"> 
-  {{ partial "posts.html" $latestUpdated }}
-</div>
-      {{ end }}
+      
 
       <!-- 3. 微言模块 -->
       <section class="weiyan-container">
