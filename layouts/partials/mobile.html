@@ -14,24 +14,24 @@
       
       <div class="friends-body">
         <div class="friends-content">
-          {{ .Content | plainify | replaceRE "\\s+" " " | truncate 60 }}
+          {{ .Content | plainify | replaceRE "\\s+" " " | truncate 75 }}
         </div>
         <div class="friends-thumbnail">
           {{ $cover := .Params.image | default "/images/1.jpg" }}
           {{ $isExternal := findRE "^(https?:)?//" $cover }}
           {{ with .Resources.GetMatch (replaceRE "^/" "" $cover) }}
-            {{ $thumbnail := .Fill "120x80 Center" }}
+            {{ $thumbnail := .Fill "100x60 Center" }}
             <img src="{{ $thumbnail.RelPermalink }}" 
                  alt="{{ .Title }}" 
                  loading="lazy"
-                 width="120"
-                 height="80">
+                 width="100"
+                 height="60">
           {{ else }}
             <img src="{{ if $isExternal }}{{ $cover }}{{ else }}{{ $cover | relURL }}{{ end }}" 
                  alt="{{ .Title }}" 
                  loading="lazy"
-                 width="120"
-                 height="80">
+                 width="100"
+                 height="60">
           {{ end }}
         </div>
       </div>
