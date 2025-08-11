@@ -136,3 +136,70 @@ if (document.querySelector(".search--icon")) {
         document.querySelector("body")!.classList.toggle("search--actived");
     });
 }
+
+
+
+// 滚动进入视口动画
+function initScrollAnimations() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+      }
+    });
+  }, {
+    threshold: 0.1
+  });
+
+  document.querySelectorAll('.block--addon').forEach(el => {
+    observer.observe(el);
+  });
+}
+
+// 图片加载动画
+function initImageLoading() {
+  document.querySelectorAll('.friends-thumbnail img').forEach(img => {
+    const container = img.closest('.friends-thumbnail');
+    container.classList.add('loading');
+    
+    if (img.complete) {
+      img.classList.add('loaded');
+      container.classList.remove('loading');
+    } else {
+      img.addEventListener('load', () => {
+        img.classList.add('loaded');
+        container.classList.remove('loading');
+      });
+      
+      img.addEventListener('error', () => {
+        container.classList.remove('loading');
+      });
+    }
+  });
+}
+
+// 初始化所有效果
+document.addEventListener('DOMContentLoaded', () => {
+  initScrollAnimations();
+  initImageLoading();
+  
+  // 点击水波纹效果
+  document.querySelectorAll('.block--addon').forEach(el => {
+    el.addEventListener('click', function(e) {
+      const rect = this.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const ripple = document.createElement('span');
+      ripple.style.left = `${x}px`;
+      ripple.style.top = `${y}px`;
+      ripple.classList.add('ripple-effect');
+      
+      this.appendChild(ripple);
+      
+      setTimeout(() => {
+        ripple.remove();
+      }, 600);
+    });
+  });
+});

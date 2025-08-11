@@ -1,15 +1,70 @@
-/* ===== 移动端专用CSS - 无分割线版本 ===== */
+/* ===== 移动端专用CSS - 增强交互动画版本 ===== */
+:root {
+  /* 动画时间变量 */
+  --anim-fast: 0.2s;
+  --anim-medium: 0.3s;
+  --anim-slow: 0.5s;
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .friends-container {
   max-width: 100%;
   margin: 0 auto;
   padding: 0 10px;
   background-color: var(--hera-background-white);
+  transition: background-color var(--anim-slow) ease;
 }
 
 .friends-container > .block--addon {
   position: relative;
   padding: 20px 0;
   margin: 0;
+  background-color: inherit;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all var(--anim-medium) var(--ease-in-out);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out, 
+              background-color var(--anim-medium) ease, 
+              box-shadow var(--anim-fast) ease;
+}
+
+.friends-container > .block--addon.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.friends-container > .block--addon:hover {
+  background-color: var(--hera-background-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.friends-container > .block--addon:active::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%, -50%);
+  transform-origin: 50% 50%;
+  animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(20, 20);
+    opacity: 0;
+  }
 }
 
 /* ===== 置顶标识 ===== */
@@ -24,6 +79,13 @@
   border-radius: var(--hera-border-radius);
   z-index: 10;
   letter-spacing: var(--hera-letter-spacing-badge);
+  transform: translateZ(0);
+  transition: all var(--anim-fast) ease;
+}
+
+.top-badge:hover {
+  transform: scale(1.05) translateZ(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* ===== 文章标题 ===== */
@@ -35,6 +97,11 @@
   line-height: 1.6;
   display: block;
   letter-spacing: var(--hera-letter-spacing-heading);
+  transition: color var(--anim-medium) ease;
+}
+
+.friends-title:hover {
+  color: var(--hera-links-color);
 }
 
 /* ===== 内容区域 ===== */
@@ -44,6 +111,7 @@
   gap: 15px;
   margin: 0 8px 15px 8px;
   align-items: flex-start;
+  transition: flex-direction var(--anim-medium) ease;
 }
 
 /* ===== 正文内容 ===== */
@@ -59,14 +127,55 @@
   text-overflow: ellipsis;
   letter-spacing: var(--hera-letter-spacing-heading);
   padding-right: 5px;
+  transition: color var(--anim-slow) ease;
 }
 
 /* ===== 缩略图样式 ===== */
+.friends-thumbnail {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  transform: translateZ(0);
+}
+
+.friends-thumbnail::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: loading 1.5s infinite;
+  z-index: 1;
+  opacity: 0;
+}
+
+.friends-thumbnail.loading::before {
+  opacity: 1;
+}
+
+@keyframes loading {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
 .friends-thumbnail img {
   width: 100px;
-  height: 60px;
+  height: 80px;
   border-radius: 4px;
   object-fit: cover;
+  transition: all var(--anim-medium) var(--ease-in-out);
+  opacity: 0;
+}
+
+.friends-thumbnail img.loaded {
+  opacity: 1;
+}
+
+.friends-thumbnail img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* ===== 底部元信息 ===== */
@@ -79,6 +188,7 @@
   gap: 10px;
   margin: 0 6px;
   letter-spacing: var(--hera-letter-spacing-medium);
+  transition: color var(--anim-slow) ease;
 }
 
 .author-info {
@@ -86,6 +196,13 @@
   align-items: center;
   gap: 6px;
   letter-spacing: var(--hera-letter-spacing-normal);
+  transition: all var(--anim-fast) ease;
+}
+
+.author-info:hover {
+  opacity: 0.9;
+  transform: translateX(3px);
+  color: var(--hera-links-color);
 }
 
 .icon {
@@ -93,6 +210,12 @@
   height: 16px;
   fill: currentColor;
   opacity: 0.9;
+  transition: all var(--anim-fast) ease;
+}
+
+.author-info:hover .icon {
+  transform: scale(1.1);
+  opacity: 1;
 }
 
 .sep::before {
@@ -100,6 +223,7 @@
   margin: 0 5px;
   color: var(--hera-text-gray-lightest);
   opacity: 0.7;
+  transition: all var(--anim-fast) ease;
 }
 
 /* ===== 暗色模式适配 ===== */
@@ -112,6 +236,11 @@
   }
   .top-badge {
     background: var(--hera-links-color);
+  }
+  
+  .friends-container > .block--addon:hover {
+    background-color: var(--hera-background-hover-dark);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   }
 }
 
@@ -129,7 +258,7 @@
   
   .friends-thumbnail img {
     width: 100%;
-    height: 140px;
+    height: 120px;
   }
   
   .friends-title {
@@ -139,4 +268,39 @@
   .block--addon .block--addon {
     letter-spacing: var(--hera-letter-spacing-wide);
   }
+  
+  .friends-container > .block--addon:hover {
+    transform: none;
+  }
 }
+
+/* 水波纹效果 */
+.ripple-effect {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(40);
+    opacity: 0;
+  }
+}
+
+
+/* ===== 滚动动画延迟 ===== */
+.friends-container > .block--addon:nth-child(1) { transition-delay: 0.1s; }
+.friends-container > .block--addon:nth-child(2) { transition-delay: 0.2s; }
+.friends-container > .block--addon:nth-child(3) { transition-delay: 0.3s; }
+.friends-container > .block--addon:nth-child(4) { transition-delay: 0.4s; }
+.friends-container > .block--addon:nth-child(5) { transition-delay: 0.5s; }
