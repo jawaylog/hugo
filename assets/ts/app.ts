@@ -203,3 +203,56 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+
+/* 阅读进度条JS代码建议 */
+/* ----------------------------- */
+
+window.addEventListener('scroll', () => {
+  const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrolled = (winScroll / height) * 100;
+  document.querySelector('.reading-progress').style.width = scrolled + '%';
+});
+
+
+/* ----------------------------- */
+/* 图片优化建议的JS代码 */
+/* ----------------------------- */
+
+document.addEventListener("DOMContentLoaded", function() {
+  // 图片查看器功能
+  const images = document.querySelectorAll('.img-viewer');
+  const modal = document.createElement('div');
+  modal.className = 'image-modal';
+  document.body.appendChild(modal);
+  
+  images.forEach(img => {
+    img.addEventListener('click', () => {
+      modal.innerHTML = `<img src="${img.src}" alt="${img.alt}">`;
+      modal.style.display = 'flex';
+    });
+  });
+  
+  modal.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+  
+  // 懒加载实现
+  if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const image = entry.target;
+          image.src = image.dataset.src;
+          image.classList.add('loaded');
+          imageObserver.unobserve(image);
+        }
+      });
+    });
+    
+    document.querySelectorAll('img.lazyload').forEach(img => {
+      imageObserver.observe(img);
+    });
+  }
+});

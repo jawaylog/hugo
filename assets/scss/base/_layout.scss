@@ -1,67 +1,182 @@
 .layout {
-    margin: 0 auto;
-    display: flex;
-
-    .is-singleColumn &,
-    .page-template-template-map &,
-    .page-template-template-wide & {
-        flex-direction: column;
-    }
+  margin: 0 auto;
+  display: flex;
+  transition: all 0.3s ease; /* 添加布局过渡效果 */
+  
+  .is-singleColumn &, 
+  .page-template-template-map &, 
+  .page-template-template-wide & {
+    flex-direction: column;
+  }
 }
 
 .content {
-    flex: 1 1 auto;
-    margin: 18px;
-    padding: 30px 0 5px;
-    background-color: var(--hera-background-white);
-    border-radius: 12px;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.02);
+  flex: 1 1 auto;
+  margin: 18px;
+  padding: 30px 0 5px;
+  background-color: var(--hera-background-white);
+  border-radius: 12px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.02);
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* 添加内容区域过渡效果 */
+  
+  /* 内容区域悬停效果 */
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  }
 }
 
-.post--list,
-.layoutContainer,
-.articleContainer,
+/* 文本基础样式优化 - 调整字体间距为1.6px（基于16px字体大小计算为0.1em） */
+:root {
+  --text-base-spacing: 0.1em; /* 1.6px (基于16px字体大小) */
+  --text-line-height: 1.7;
+  --heading-line-height: 1.4;
+  --heading-letter-spacing: 0.08em; /* 标题字间距约1.28px */
+}
+
+/* 容器样式保持不变 */
+.post--list, 
+.layoutContainer, 
+.articleContainer, 
 .doubanContainer {
-    width: 92%;
-    max-width: var(--hera-column-width);
-    margin: 0 auto;
+  width: 92%;
+  max-width: var(--hera-column-width);
+  margin: 0 auto;
 }
 
 .articleContainer {
-    max-width: var(--hera-article-width);
-    padding-top: 15px;
-    min-height: calc(100vh - 50px);
-    box-sizing: border-box;
+  max-width: var(--hera-article-width);
+  padding-top: 15px;
+  min-height: calc(100vh - 50px);
+  box-sizing: border-box;
 }
 
 .doubanContainer {
-    --hera-article-width: 850px;
+  --hera-article-width: 850px;
 }
 
 /* ----------------------------- */
-/* 响应式设计 */
+/* 字体间距优化 - 已调整为1.6px */
+/* ----------------------------- */
+/* 段落文本优化 */
+p, li, span, a:not(.btn) {
+  letter-spacing: var(--text-base-spacing); /* 应用1.6px间距 */
+  line-height: var(--text-line-height);
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+/* 标题文本优化 */
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: var(--heading-letter-spacing); /* 标题专用间距 */
+  line-height: var(--heading-line-height);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+/* 链接交互效果 */
+a {
+  position: relative;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  
+  &:hover {
+    color: var(--hera-primary-color);
+    
+    /* 链接下划线动画效果 */
+    &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      bottom: -2px;
+      left: 0;
+      background-color: var(--hera-primary-color);
+      transform: scaleX(1);
+      transform-origin: bottom right;
+      transition: transform 0.3s ease-out;
+    }
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: bottom left;
+    transition: transform 0.3s ease-out;
+  }
+}
+
+/* 按钮交互效果 */
+.btn {
+  transition: all 0.2s ease;
+  transform: translateY(0);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+/* ----------------------------- */
+/* 响应式设计 - 保持原有功能并优化字体间距 */
 /* ----------------------------- */
 @media (min-width: 1920px) {
-    .articleContainer { max-width: 993px; }
-    .layoutContainer { max-width: 907px; }
+  .articleContainer {
+    max-width: 993px;
+  }
+  
+  .layoutContainer {
+    max-width: 907px;
+  }
+  
+  /* 大屏幕字体微调 - 略微增加间距 */
+  p, li {
+    letter-spacing: 0.11em; /* 约1.76px */
+    line-height: 1.75;
+  }
+  
+  h1, h2, h3, h4 {
+    letter-spacing: 0.09em; /* 约1.44px */
+  }
 }
 
 @media (max-width: 1280px) {
-    .articleContainer { padding-top: 0; }
+  .articleContainer {
+    padding-top: 0;
+  }
 }
 
 @media (max-width: 768px) {
-    .articleContainer {
-        width: 95%;
-        padding: 10px 3.5% 3.5%;
-    }
+  .articleContainer {
+    width: 95%;
+    padding: 10px 3.5% 3.5%;
+  }
+  
+  /* 小屏幕字体优化 - 适当减小间距保持可读性 */
+  :root {
+    --text-base-spacing: 0.09em; /* 约1.44px */
+    --text-line-height: 1.65;
+    --heading-letter-spacing: 0.07em; /* 约1.12px */
+  }
 }
 
 @media (max-width: 720px) {
-    .layout { flex-direction: column; }
-    .content {
-        margin: 0;
-        padding-top: 0;
-        border-radius: 0;
-    }
+  .layout {
+    flex-direction: column;
+  }
+  
+  .content {
+    margin: 0;
+    padding-top: 0;
+    border-radius: 0;
+    box-shadow: none; /* 在小屏幕上移除阴影以增加内容空间 */
+  }
 }

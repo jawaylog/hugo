@@ -5,9 +5,9 @@
 
   /* 修改点1：正文片段优化 */
   &--snippet {
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.8; /* 调整行高 */
-    letter-spacing: 0.6px; /* 新增字间距 */
+    letter-spacing: 1.8px; /* 新增字间距 */
     color: var(--hera-text-gray);
     /* 移除 max-height: 4.8em; 修复截断问题 */
     overflow: hidden;
@@ -22,7 +22,7 @@
   &--title {
     margin: 0 0 12px; /* 增大下边距 */
     line-height: 1.6; /* 调整行高 */
-    letter-spacing: 0.5px; /* 新增字间距 */
+    letter-spacing: 1.8px; /* 新增字间距 */
     font-size: 22px;
     font-weight: 900;
     &:hover {
