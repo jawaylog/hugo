@@ -91,27 +91,29 @@
 
 /* ===== 内容区域 ===== */
 .friends-body {
-  display: flex;
-  flex-direction: row;
-  gap: 15px;
-  margin: 0 8px 15px 8px;
-  align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    margin: 0 4px 4px 4px; /* 底部margin从15px减小到8px，使底部信息栏更紧凑 */
+    align-items: flex-start;
 }
 
 /* ===== 正文内容 ===== */
 .friends-content {
-  flex: 1;
-  font-size: var(--hera-font-size-smallest);
-  color: var(--hera-text-light);
-  line-height: 1.8;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  letter-spacing: var(--hera-letter-spacing-heading);
-  padding-right: 5px;
+    flex: 1;
+    font-size: var(--hera-font-size-smallest);
+    color: var(--hera-text-light);
+    line-height: 1.8;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* 保持3行显示 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: justify; /* 两端对齐优化排版 */
+    letter-spacing: var(--hera-letter-spacing-heading);
+    padding-right: 5px;
 }
+
 
 /* ===== 缩略图样式 ===== */
 .friends-thumbnail {
