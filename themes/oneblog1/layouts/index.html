@@ -1,0 +1,61 @@
+{{ partial "header.html" . }}
+
+
+{{ partial "head.html" . }}
+
+{{ if eq .Kind "home" }}
+    {{ if eq .Site.Params.switch "on" }}
+    
+    
+    
+    
+    
+    {{ end }}
+{{ end }}
+
+{{ $posts := where .Site.RegularPages "Section" "eq" "posts" }}
+{{ if $posts }}
+    
+    
+        {{ $paginator := .Paginate $posts }}
+        {{ range $paginator.Pages }}
+        
+            
+                {{ .Title }}
+            
+            
+                {{ .Summary | truncate 80 "..." }}
+                {{ if .Params.thumbnail }}
+                
+                
+                {{ end }}
+            
+            
+                {{ .Date | time.Format ":date_long" }}
+                {{ .Params.views | default 0 }} 阅读
+                {{ .Params.comments | default 0 }} 评论
+            
+        
+        {{ end }}
+    
+    
+    
+
+    加载更多
+
+
+
+{{ else }}
+    
+        
+
+        暂无文章内容
+        返回首页
+    
+{{ end }}
+
+
+
+
+
+{{ partial "footer.html" . }}

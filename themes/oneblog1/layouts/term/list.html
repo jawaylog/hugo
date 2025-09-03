@@ -1,0 +1,53 @@
+{{ partial "header.html" . }}
+
+<div class="main">
+{{ partial "head.html" . }}
+
+<div class="category-header m blur" style="background-image: url('{{ .Site.Params.tagbg | default "img/bg.jpg" | relURL }}');">
+    <div class="category-info">
+        <h1>{{ .Title }}</h1>
+        <span>{{ .Data.Singular }} · 共 {{ len .Data.Pages }}篇文章</span>
+    </div>
+</div>
+
+{{ if .Data.Pages }}
+    <!--文章列表-->
+    <div id="posts" class="blur">
+        {{ $paginator := .Paginate .Data.Pages }}
+        {{ range $paginator.Pages }}
+        <a href="{{ .Permalink }}" class="post" >
+            <h1 class="animated fadeInUp">
+                {{ .Title }}
+            </h1>
+            <div class="post_preview animated fadeInUp">
+                <p>{{ .Summary | truncate 80 "..." }}</p>
+                {{ if .Params.thumbnail }}
+                <div class="post_img lazy-load" data-src="{{ .Params.thumbnail | relURL }}{{ if .Site.Params.imgSmall }}{{ .Site.Params.imgSmall }}{{ end }}">
+                </div>
+                {{ end }}
+            </div>
+            <div class="post_meta animated fadeInUp">
+                <span>{{ .Date | time.Format ":date_long" }}</span>
+                <span>{{ .Params.views | default 0 }}&nbsp;阅读</span>
+                <span>{{ .Params.comments | default 0 }}&nbsp;评论</span>
+            </div>
+        </a>
+        {{ end }}
+    </div>
+    <!--分页-->
+    <div class="load blur" id="loadmore">
+        {{ template "_internal/pagination.html" . }}
+    </div>
+{{ else }}
+    <div class="nodata blur">
+        <img src='{{ "img/nodata.svg" | relURL }}'></img>
+        <span>暂无相关内容</span>
+        <a href="{{ .Site.BaseURL }}">返回首页</a>
+    </div>
+{{ end }}
+</div>
+
+<!--返回顶部-->
+<a id="gototop" class="hidden pc"><i class="iconfont icon-up"></i></a>
+
+{{ partial "footer.html" . }}

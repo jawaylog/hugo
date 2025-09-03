@@ -1,0 +1,69 @@
+{{ partial "header.html" . }}
+
+<div class="main">
+{{ partial "head.html" . }}
+
+<!-- 归档页面头部 -->
+<div class="archive-header blur">
+    <h1 class="page-title">文章归档</h1>
+    <div class="taxonomy-description">
+        这里是所有文章的归档列表，按发布时间排序
+    </div>
+</div>
+
+<!-- 按年份分组的文章列表 -->
+{{ $posts := where .Site.RegularPages "Section" "eq" "posts" }}
+{{ $groupedPosts := $posts.GroupByDate "2006" }}
+
+{{ range $groupedPosts }}
+<div class="archive-year">
+    <h2 class="archive-year-title">{{ .Key }}年</h2>
+    
+    <!-- 文章网格布局 -->
+    <div class="articleRelated">
+        {{ range .Pages }}
+        <div class="articleRelated__item">
+            <a href="{{ .Permalink }}" class="articleRelated__title">
+                {{ .Title }}
+            </a>
+            <div class="meta">
+                <time datetime="{{ .Date.Format "2006-01-02" }}">
+                    {{ .Date.Format "01月02日" }}
+                </time>
+                <span>{{ (index (.Params.categories | default (slice "未分类")) 0) | humanize }}</span>
+            </div>
+        </div>
+        {{ end }}
+    </div>
+</div>
+{{ end }}
+
+<!-- 分页控件 -->
+{{ if $posts }}
+<div class="load blur" id="loadmore">
+    {{ template "_internal/pagination.html" . }}
+</div>
+{{ else }}
+<div class="nodata blur">
+    <img src='{{ "img/nodata.svg" | relURL }}'></img>
+    <span>暂无文章内容</span>
+    <a href="{{ .Site.BaseURL }}">返回首页</a>
+</div>
+{{ end }}
+
+<!-- 页脚信息 -->
+<div class="postFooter--simple">
+    <div class="postFooter-author">
+        <a href="{{ .Site.BaseURL }}">{{ .Site.Author.name }}</a>
+    </div>
+    <div class="postFooter-info">
+        © {{ now.Year }} {{ .Site.Title }}. 保留所有权利。
+    </div>
+</div>
+
+</div>
+
+<!-- 返回顶部按钮 -->
+<a id="gototop" class="hidden pc"><i class="iconfont icon-up"></i></a>
+
+{{ partial "footer.html" . }}

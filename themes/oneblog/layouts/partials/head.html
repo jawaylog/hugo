@@ -1,0 +1,65 @@
+<!-- 移动端侧栏菜单-->
+<div class="menu">
+    <div class="close m">
+        <span id="close"><i class="iconfont icon-cancel"></i></span>
+    </div>
+    <ul>
+        {{ range .Site.Menus.main }}
+        <li><a href="{{ .URL }}"><i class="iconfont {{ .Params.icon }}"></i>{{ .Name }}</a></li>
+        {{ end }}
+        <li class="pc"><a href="javascript:void(0);" onclick="openSearch();"><i class="iconfont icon-search"></i>搜索</a></li>
+    </ul>
+    <div class="copyright m">
+        <div class="switch">
+            夜间模式<input type="checkbox" id="night1" class="switchBtn"><label for="night1" class="switchBtn"></label>
+        </div>
+        <span>©{{ if .Site.Params.webtime }}{{ .Site.Params.webtime }}-{{ end }}{{ now.Year }}&nbsp;&nbsp;<a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a></span>
+        <span>Theme by <a id="copyright-m" href="https://oneblog.net/oneblog" title="自豪地使用OneBlog主题" target="_blank">OneBlog</a></span>
+    </div>
+</div>
+
+<!--顶部菜单-->
+<div class="header bg-white">
+    <i class="iconfont icon-nav"></i>
+    <a class="logo" id="logo" href="{{ .Site.BaseURL }}" style="background-image:url('{{ .Site.Params.logo | default ("img/logo.svg" | relURL) }}')"></a>
+    <i id="search-btn" class="iconfont icon-search m"></i>
+</div>
+
+<!--搜索弹框-->
+<div class="search-layer">
+    <button class="close-search pc"><i class="iconfont icon-cancel"></i></button>
+    <div class="search">
+        <h5 class="pc">搜索</h5>
+        <form autocomplete="off" id="search" action="{{ .Site.BaseURL }}search" method="get" role="search" class="search-form">
+            <input type="text" name="q" class="input" placeholder="输入关键字搜索" required />
+            <button type="submit" class="search-icon">
+                <span class="m">搜索</span>
+                <i class="iconfont icon-search pc"></i>
+            </button>
+        </form>
+    </div>
+    <div class="tagscloud pc">
+        <h5>标签</h5>
+        {{ range first 10 .Site.Taxonomies.tags.ByCount }}
+        <a href="{{ .Page.Permalink }}">{{ .Page.Title }}({{ .Count }})</a>
+        {{ end }}
+    </div>
+</div>
+
+<div class="one pc">
+    {{ if eq .Kind "home" }}
+    {{ $quotes := split (readFile "data/quotes.txt") "\n" }}
+    {{ $randomIndex := mod (now.UnixNano) (len $quotes) }}
+    " {{ index $quotes $randomIndex }} "
+    {{ else if eq .Section "search" }}
+    " 博客内包含关键字「<span>{{ .Params.q }}</span>」的文章&nbsp;&nbsp;共{{ with .Data.Pages }}{{ len . }}{{ else }}0{{ end }}篇 "
+    {{ else if eq .Kind "term" }}
+    " 博客内包含{{ .Data.Singular }}「<span>{{ .Title }}</span>」的文章&nbsp;&nbsp;共{{ with .Data.Pages }}{{ len . }}{{ else }}0{{ end }}篇 "
+    {{ else if eq .Kind "taxonomy" }}
+    " 所有{{ .Data.Singular }}分类&nbsp;&nbsp;共{{ with .Data.Terms }}{{ len . }}{{ else }}0{{ end }}个"
+    {{ else if eq .Kind "section" }}
+    " 分类「<span>{{ .Title }}</span>」下的文章&nbsp;&nbsp;共{{ with .Data.Pages }}{{ len . }}{{ else }}0{{ end }}篇 "
+    {{ else if eq .Kind "archive" }}
+    " {{ .Date.Year }}年发布的文章&nbsp;&nbsp;共{{ with .Data.Pages }}{{ len . }}{{ else }}0{{ end }}篇 "
+    {{ end }}
+</div>

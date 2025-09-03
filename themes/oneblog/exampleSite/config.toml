@@ -1,0 +1,77 @@
+baseURL = "https://example.com/"
+languageCode = "zh-CN"
+title = "我的博客"
+theme = "oneblog"
+author = "Your Name"
+copyright = "© 2024 我的博客. All rights reserved."
+
+# 分页设置
+paginate = 10
+
+# 主题参数
+[params]
+themeColor = "#ff5050"          # 主题主色调
+slogan = "自豪地使用OneBlog主题"  # 网站副标题
+switch = "on"                   # 是否开启首页banner
+webtime = "2023"                # 网站创建年份
+icp = "京ICP备123456号"         # 备案号
+wa = "京公网安备1234567890号"   # 公安备案号
+logo = ""                       # 网站logo
+logoWhite = ""                  # 白色logo（夜间模式用）
+webthumb = ""                   # 网站缩略图（用于OGP）
+imgSmall = "?imageView2/1/w/300/h/200/q/75"  # 缩略图处理参数
+beCode = "on"                   # 是否开启代码高亮
+customCSS = ""                  # 自定义CSS
+customJS = ""                   # 自定义JS
+
+# 社交链接
+[params.contact]
+qq = "123456789"                # QQ号
+weixin = "img/weixin.jpg"       # 微信二维码图片
+email = "example@mail.com"      # 邮箱
+github = "https://github.com/"  # Github链接
+
+# 首页banner配置
+[[params.banner]]
+link = "/post/hello-world"
+title = "欢迎使用OneBlog主题"
+thumb = "img/banner1.jpg"
+
+[[params.banner]]
+link = "/post/hugo-guide"
+title = "Hugo使用指南"
+thumb = "img/banner2.jpg"
+
+# 菜单配置
+[[menu.main]]
+name = "首页"
+url = "/"
+weight = 1
+params.icon = "icon-home"
+
+[[menu.main]]
+name = "归档"
+url = "/archives"
+weight = 2
+params.icon = "icon-archives"
+
+[[menu.footer]]
+name = "关于"
+url = "/about"
+weight = 1
+
+[[menu.footer]]
+name = "友链"
+url = "/links"
+weight = 2
+
+# 评论系统（Disqus）
+disqusShortname = "your-disqus-shortname"
+
+# 代码高亮
+[markup]
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = true
+    lineNos = true
+    lineNumbersInTable = true

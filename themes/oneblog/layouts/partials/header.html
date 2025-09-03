@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, width=device-width"/>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="dns-prefetch" href="https://at.alicdn.com">
+<link rel="dns-prefetch" href="https://weavatar.com">
+{{ if .Site.Params.dnsPrefetch }}
+{{ range split .Site.Params.dnsPrefetch "\n" }}
+{{ $domain := trim . }}
+{{ if $domain }}
+<link rel="dns-prefetch" href="{{ $domain }}">
+{{ end }}
+{{ end }}
+{{ end }}
+{{ if .Site.Params.favicon }}
+<link rel="shortcut icon" href="{{ .Site.Params.favicon }}" type="image/x-icon" />
+{{ end }}
+<title>
+{{ if .IsHome }}
+{{ .Site.Title }} - {{ if .Site.Params.slogan }}{{ .Site.Params.slogan }}{{ else }}自豪地使用OneBlog主题{{ end }}
+{{ else if eq .Section "archives" }}
+{{ .Date.Year }}年发布的文章 - {{ .Site.Title }}
+{{ else }}
+{{ .Title }} - {{ .Site.Title }}
+{{ end }}
+</title>
+<link href="{{ "sdk/animate.compat.css" | relURL }}" rel="stylesheet"><!--动画效果-->
+<link href="//at.alicdn.com/t/c/font_3940454_drimor4umam.css" rel="stylesheet"/><!---图标库 iconfont.cn -->
+{{ if .IsHome }}
+<link rel="stylesheet" href="{{ "sdk/swiper/swiper-bundle.min.css" | relURL }}" /><!--轮播图-->
+{{ end }}
+<link rel="stylesheet" href="{{ "sdk/fancybox3/jquery.fancybox.min.css" | relURL }}" /><!--灯箱效果-->
+<link href="{{ "css/main.css?v=3.6.2" | relURL }}" rel="stylesheet"/><!--主题核心样式-->
+<link href="{{ "css/m.css?v=3.6.2" | relURL }}" rel="stylesheet"/><!--主题核心样式-->
+<link href="{{ "css/app.css" | relURL }}" rel="stylesheet"/><!--diy主题核心样式-->
+<link href="{{ "css/archives.css" | relURL }}" rel="stylesheet"/><!--diy主题核心样式-->
+<style>
+:root {
+    --theme-color: {{ .Site.Params.themeColor | default "#ff5050" }};
+}
+{{ .Site.Params.customCSS | safeCSS }}
+</style>
+<!--各页面OG信息及SEO优化-->
+{{ $defaultThumb := "img/bg.jpg" | relURL }}
+{{ $webthumb := .Site.Params.webthumb | default (printf "%simg/logo.png" .Site.BaseURL) }}
+{{ if .IsHome }}
+<meta property="og:description" content="{{ .Site.Params.description }}" />
+<meta property="og:image" content="{{ $webthumb }}" />
+<meta name="image" content="{{ $webthumb }}">
+<link rel="apple-touch-icon-precomposed" href="{{ $webthumb }}">
+<meta name="msapplication-TileImage" content="{{ $webthumb }}">
+{{ else if .IsPage }}
+<meta property="og:description" content="{{ .Summary | truncate 80 "..." }}" />
+<meta property="og:image" content="{{ .Params.thumbnail | default $defaultThumb }}" />
+<meta name="image" content="{{ .Params.thumbnail | default $defaultThumb }}">
+<link rel="apple-touch-icon-precomposed" href="{{ .Params.thumbnail | default $defaultThumb }}">
+<meta name="msapplication-TileImage" content="{{ .Params.thumbnail | default $defaultThumb }}">
+{{ else }}
+<meta property="og:image" content="{{ $webthumb }}" />
+<meta property="og:image:type" content="image/webp">
+<meta name="image" content="{{ $webthumb }}">
+<link rel="apple-touch-icon-precomposed" href="{{ $webthumb }}">
+<meta name="msapplication-TileImage" content="{{ $webthumb }}">
+{{ end }}
+<script>
+var logoUrl = "{{ .Site.Params.logo | default ("img/logo.svg" | relURL) }}";
+var logoWhiteUrl = "{{ .Site.Params.logoWhite | default ("img/logoWhite.svg" | relURL) }}";
+var bannerSwitch = "{{ .Site.Params.switch | default "off" }}";
+(function() {
+    var currentTheme = document.cookie.replace(/(?:(?:^|.*;\\s*)eyeProtectMode\\s*\\=\\s*([^;]*).*$)|^.*$/, "$1");
+    if (currentTheme === 'dark') {
+        document.documentElement.classList.add('night');
+    }
+})();
+</script>
+</head>
+<body>

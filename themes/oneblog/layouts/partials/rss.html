@@ -1,0 +1,25 @@
+{{ define "main" }}
+<div class="articleContainer">
+  <div class="article-list">
+    {{ range $.Site.Data.rss.articles }}
+      <div class="article-item">
+        {{ if .icon }}
+          <img src="{{ .icon }}" alt="{{ .title }}" class="article-image">
+        {{ end }}
+        <div class="article-content">
+          <div class="article-meta">
+            <span class="site-name">{{ .site_name }} 发布了：</span>
+            <a href="{{ .link }}" target="_blank" class="article-title">{{ .title }}</a>
+          </div>
+          <div class="article-meta">
+            <span class="time"><time datetime='{{ .time }}' class="humane--time">{{ .time }}</time></span>
+          </div>
+          <div class="article-summary">
+            {{ .description }}
+          </div>
+        </div>
+      </div>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

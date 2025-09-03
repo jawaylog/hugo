@@ -1,0 +1,29 @@
+{{ partial "header.html" . }}
+
+<div class="main">
+{{ partial "head.html" . }}
+
+<div class="category-header m blur" style="background-image: url('{{ .Site.Params.tagbg | default "img/bg.jpg" | relURL }}');">
+    <div class="category-info">
+        <h1>{{ .Title }}</h1>
+        <span>共有 {{ with .Data.Terms }}{{ len . }}{{ else }}0{{ end }} 个{{ .Data.Singular }}</span>
+    </div>
+</div>
+
+<div class="taxonomy-list blur">
+    {{ range $term, $pages := .Data.Terms }}
+    <a href="{{ $.Site.BaseURL }}{{ $.Data.Plural }}/{{ $term | urlize }}">
+        <div class="taxonomy-item">
+            <span class="taxonomy-name">{{ $term }}</span>
+            <span class="taxonomy-count">({{ len $pages }})</span>
+        </div>
+    </a>
+    {{ end }}
+</div>
+
+</div>
+
+<!--返回顶部-->
+<a id="gototop" class="hidden pc"><i class="iconfont icon-up"></i></a>
+
+{{ partial "footer.html" . }}

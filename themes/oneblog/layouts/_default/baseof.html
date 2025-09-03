@@ -1,0 +1,64 @@
+{{ partial "header.html" . }}
+{{ partial "head.html" . }}
+
+<!-- 分类标题区域 -->
+<div class="category-header">
+    <h1 class="category-title">{{ .Title }}</h1>
+    {{ with .Description }}
+    <p class="category-description">{{ . }}</p>
+    {{ end }}
+    <div class="category-meta">
+        <span>共 {{ len .Pages }} 篇文章</span>
+        <span>最后更新: {{ .Pages.ByDate.Reverse.First.PublishDate.Format ":date_long" }}</span>
+    </div>
+</div>
+
+<!-- 文章列表区域 -->
+{{ $posts := .Pages.ByDate.Reverse }}
+{{ if $posts }}
+    {{ $paginator := .Paginate $posts }}
+    <div class="post-list">
+        {{ range $paginator.Pages }}
+        <article class="post-card">
+            <div class="post-content">
+                <h2 class="post-title">
+                    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                </h2>
+                
+                {{ $summary := .Summary | replaceRE "<[^>]+>" "" | safeHTML }}
+                <p class="post-summary">{{ $summary | truncate 65 "..." }}</p>
+                
+                <div class="post-meta">
+                    <time datetime="{{ .Date.Format "2006-01-02" }}">
+                        {{ .Date | time.Format ":date_long" }}
+                    </time>
+                    <span class="post-views">{{ .Params.views | default 0 }} 阅读</span>
+                    <span class="post-comments">{{ .Params.comments | default 0 }} 评论</span>
+                </div>
+            </div>
+            
+            {{ $thumbnail := .Params.thumbnail }}
+            {{ if not $thumbnail }}
+                {{ $thumbnail = .Params.image }}
+            {{ end }}
+            
+            {{ if $thumbnail }}
+            <div class="post-thumbnail">
+                <img src="{{ if hasPrefix $thumbnail "http://" | or (hasPrefix $thumbnail "https://") }}{{ $thumbnail }}{{ else }}{{ $thumbnail | relURL }}{{ end }}" 
+                     alt="{{ .Title }}">
+            </div>
+            {{ end }}
+        </article>
+        {{ end }}
+    </div>
+
+    <!-- 分页控件 -->
+    {{ template "_internal/pagination.html" . }}
+{{ else }}
+    <div class="no-posts">
+        <p>暂无该分类下的文章内容</p>
+        <a href="{{ .Site.BaseURL }}" class="btn-back-home">返回首页</a>
+    </div>
+{{ end }}
+
+{{ partial "footer.html" . }}

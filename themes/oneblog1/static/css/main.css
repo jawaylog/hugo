@@ -1,0 +1,88 @@
+{{ partial "header.html" . }}
+
+<div class="main">
+{{ partial "head.html" . }}
+
+{{ if eq .Kind "home" }}
+    {{ if eq .Site.Params.switch "on" }}
+    <div class="banner-container blur">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                {{ range .Site.Params.banner }}
+                <div class="swiper-slide">
+                    <a href="{{ .link }}">
+                        <div class="banner-thumb" style="background-image: url('{{ .thumb | relURL }}');"></div>
+                        <div class="banner-title animated fadeIn">
+                            <h1>{{ .title }}</h1>
+                        </div>
+                    </a>
+                </div>
+                {{ end }}
+            </div>
+            <!-- 分页器 -->
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+    
+    <!-- 轮播图JS -->
+    <script src="{{ "sdk/swiper/swiper-bundle.min.js" | relURL }}"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var swiper = new Swiper('.swiper-container', {
+            loop: true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+    });
+    </script>
+    {{ end }}
+{{ end }}
+
+{{ $posts := where .Site.RegularPages "Section" "eq" "posts" }}
+{{ if $posts }}
+    <!--文章列表-->
+    <div id="posts" class="blur">
+        {{ $paginator := .Paginate $posts }}
+        {{ range $paginator.Pages }}
+        <a href="{{ .Permalink }}" class="post" >
+            <h1 class="animated fadeInUp">
+                {{ .Title }}
+            </h1>
+            <div class="post_preview animated fadeInUp">
+                <p>{{ .Summary | truncate 80 "..." }}</p>
+                {{ if .Params.thumbnail }}
+                <div class="post_img lazy-load" data-src="{{ .Params.thumbnail | relURL }}"></div>
+                {{ end }}
+            </div>
+            <div class="post_meta animated fadeInUp">
+                <span>{{ .Date | time.Format "2006.01.02" }}</span>
+                <span>{{ .Params.views | default 0 }}&nbsp;阅读</span>
+                <span>{{ .Params.comments | default 0 }}&nbsp;评论</span>
+            </div>
+        </a>
+        {{ end }}
+    </div>
+    <!--分页-->
+    <div class="load blur" id="loadmore">
+        {{ template "_internal/pagination.html" . }}
+    </div>
+{{ else }}
+    <div class="nodata blur">
+        <img src='{{ "img/nodata.svg" | relURL }}'></img>
+        <span>暂无文章内容</span>
+        <a href="{{ .Site.BaseURL }}">返回首页</a>
+    </div>
+{{ end }}
+
+</div>
+
+<!--返回顶部-->
+<a id="gototop" class="hidden pc"><i class="iconfont icon-up"></i></a>
+
+{{ partial "footer.html" . }}

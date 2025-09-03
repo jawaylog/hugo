@@ -1,0 +1,12 @@
+<div class="post_preview animated fadeInUp">
+    {{ $summary := .Summary | replaceRE "<img[^>]+>" "" | safeHTML }}
+    <p>{{ $summary | truncate 80 "..." }}</p>
+    {{ $defaultThumb := "img/bg.jpg" | relURL }}
+    {{ $field := .Site.Params.defaultThumbnailField | default "thumbnail" }}
+    {{ $thumb := index .Params $field | default $defaultThumb }}
+    
+    {{ if ne $thumb $defaultThumb }}
+    <!-- 使用img标签并恢复懒加载 -->
+    <img class="post_img lazy-load" data-src="{{ $thumb | relURL }}" alt="{{ .Title }}">
+    {{ end }}
+</div>

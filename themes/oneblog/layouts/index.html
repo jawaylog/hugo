@@ -1,0 +1,96 @@
+{{ partial "header.html" . }}
+
+<div class="main">
+    {{ partial "head.html" . }}
+
+    {{ if eq .Kind "home" }}
+        {{ if eq .Site.Params.switch "on" }}
+            <div class="banner-container blur"></div>
+            
+            <script id="banner-json" type="application/json">
+                [
+                    {{ $banners := default slice .Site.Params.banner }}
+                    {{ range $index, $item := $banners }}
+                    {
+                        "link": "{{ $item.link }}",
+                        "title": "{{ $item.title }}",
+                        "thumb": "{{ $item.thumb | relURL }}"
+                    }{{ if ne $index (sub (len $banners) 1) }},{{ end }}
+                    {{ end }}
+                ]
+            </script>
+            <!-- 加载轮播图CSS -->
+            <link rel="stylesheet" href="{{ "sdk/swiper/swiper-bundle.min.css" | relURL }}" /><!--轮播图-->
+        {{ end }}
+    {{ end }}
+
+    {{ $posts := where .Site.RegularPages "Section" "in" (slice "posts" "memo") }}
+    {{ if $posts }}
+        <!--文章列表-->
+        <div id="posts" class="blur">
+            {{ $paginator := .Paginate $posts }}
+            {{ range $paginator.Pages }}
+            <a href="{{ .Permalink }}" class="post" >
+                <h1 class="animated fadeInUp">
+                    {{ .Title }}
+                </h1>
+                <div class="post_preview animated fadeInUp">
+                    <div class="post_content_wrapper">
+                        <!-- 仅保留纯文本摘要，移除所有HTML标签 -->
+                        {{ $summary := .Summary | replaceRE "<[^>]+>" "" | safeHTML }}
+                        <p>{{ $summary | truncate 65 "..." }}</p>
+                    </div>
+                    
+                    {{ $thumbnail := .Params.thumbnail }}
+                    <!-- 兼容旧主题的image参数 -->
+                    {{ if not $thumbnail }}
+                        {{ $thumbnail = .Params.image }}
+                    {{ end }}
+                    <!-- 从文章内容提取图片 -->
+                    {{ if not $thumbnail }}
+                        {{ $images := findRE "<img src=[\\\"']([^\\\"']+)[\\\"']" .Content 1 }}
+                        {{ if $images }}
+                            {{ $thumbnail = index $images 0 | replaceRE "<img src=[\\\"']([^\\\"']+)[\\\"']" "$1" }}
+                        {{ end }}
+                    {{ end }}
+                    
+                    {{ if $thumbnail }}
+                    <div class="post_img_wrapper">
+                        {{ if hasPrefix $thumbnail "http://" | or (hasPrefix $thumbnail "https://") }}
+                            <!-- 绝对URL -->
+                            <div class="post_img lazy-load" data-src="{{ $thumbnail }}" style="display:block !important;">
+                            </div>
+                        {{ else }}
+                            <!-- 相对URL -->
+                            <div class="post_img lazy-load" data-src="{{ $thumbnail | relURL }}" style="display:block !important;">
+                            </div>
+                        {{ end }}
+                    </div>
+                    {{ end }}
+                </div>
+                <div class="post_meta animated fadeInUp">
+                    <span class="post-date" data-date="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date | time.Format ":date_long" }}</span>
+                    <span>{{ .Params.views | default 0 }}&nbsp;阅读</span>
+                    <span>{{ .Params.comments | default 0 }}&nbsp;评论</span>
+                </div>
+            </a>
+            {{ end }}
+        </div>
+        <!--分页-->
+        <div class="load blur" id="loadmore">
+            {{ template "_internal/pagination.html" . }}
+        </div>
+    {{ else }}
+        <div class="nodata blur">
+            <img src='{{ "img/nodata.svg" | relURL }}'></img>
+            <span>暂无文章内容</span>
+            <a href="{{ .Site.BaseURL }}">返回首页</a>
+        </div>
+    {{ end }}
+</div>
+
+<!--返回顶部-->
+<a id="gototop" class="hidden pc"><i class="iconfont icon-up"></i></a>
+
+
+{{ partial "footer.html" . }}

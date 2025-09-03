@@ -1,0 +1,15 @@
+{{ define "partials/functions/timeago.html" }}
+{{ $date := . }}
+{{ $now := now }}
+{{ $diff := $now.Sub $date }}
+
+{{ if lt $diff.Hours 24 }}
+    {{ printf "%d小时前" $diff.Hours }}
+{{ else if lt $diff.Days 30 }}
+    {{ printf "%d天前" $diff.Days }}
+{{ else if lt $diff.Months 12 }}
+    {{ printf "%d个月前" $diff.Months }}
+{{ else }}
+    {{ $date.Format "2006年01月02日" }}
+{{ end }}
+{{ end }}

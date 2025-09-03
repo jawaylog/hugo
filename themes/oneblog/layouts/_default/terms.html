@@ -1,0 +1,49 @@
+{{ partial "header.html" . }}
+<div class="main">
+{{ partial "head.html" . }}
+
+
+
+ <div id="posts" class="blur">
+    
+    <h4 class="archive-title">共计 {{ len (where .Site.RegularPages "Section" "posts") }} 篇日志</h4>
+
+    <!-- 分类列表 -->
+    <div class="category-list">
+        <ul>
+            {{- range $name, $taxonomy := .Site.Taxonomies.categories -}}
+            <li>
+                <a href="/categories/{{ $name | urlize }}">
+                    <span>#{{ $name }}</span>
+                    <span>({{ $taxonomy.Count }})</span>
+                </a>
+            </li>
+            {{- end -}}
+        </ul>
+    </div>
+
+    <!-- 文章归档 -->
+    <div class="page--archive">
+        {{ range .Site.RegularPages.GroupByDate "2006" }}
+        <div class="year-section">
+            <h2 class="archive--title__year">{{ .Key }}</h2>
+            {{ range .Pages.GroupByDate "2006-01" }}
+            <div class="month-card">
+                <h3 class="archive--title__month">{{ (index .Pages 0).Date.Format "1月" }}</h3>
+                <ul class="listing">
+                    {{ range .Pages.ByPublishDate.Reverse }}
+                    <li>
+                        <div class="archive-title">
+                            <a href="{{ .RelPermalink }}" title="{{ .Title }}">{{ .Title }}</a>
+                            <span class="archive-date">{{ .Date.Format "01-02" }}</span>
+                        </div>
+                    </li>
+                    {{ end }}
+                </ul>
+            </div>
+            {{ end }}
+        </div>
+        {{ end }}
+    </div>
+</div></main>
+{{ partial "footer.html" . }}</div>

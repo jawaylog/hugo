@@ -1,0 +1,122 @@
+<div class="footer pc">
+    <div class="navigation"><!--底部菜单导航-->
+        {{ range .Site.Menus.footer }}
+        <a href="{{ .URL }}">{{ .Name }}</a>
+        {{ end }}
+    </div>
+    <div class="copyright">
+        Copyright&copy;{{ if .Site.Params.webtime }}{{ .Site.Params.webtime }}-{{ end }}{{ now.Year }}&nbsp;&nbsp;All Rights Reserved.&nbsp;&nbsp;
+        {{ if .Site.Params.wa }}
+        <img src="{{ "img/beian.png" | relURL }}"/><a href="https://beian.mps.gov.cn" rel="nofollow noreferrer" target="_blank">{{ .Site.Params.wa }}</a>&nbsp;&nbsp;
+        {{ end }}
+        {{ if .Site.Params.icp }}
+        <a href="https://beian.miit.gov.cn/" target="_blank" rel="nofollow noreferrer">{{ .Site.Params.icp }}</a><br>
+        {{ end }}
+        Theme by <a id="copyright-pc" href="https://oneblog.net/oneblog" title="自豪地使用OneBlog主题" target="_blank">OneBlog</a> V3.6.2        
+        <div class="switch">
+            <span>夜间模式</span>
+            <input type="checkbox" id="night2" class="night-toggle">
+            <label for="night2" class="switchBtn"></label>
+        </div>
+    </div>
+    <div class="contact">
+        {{ if .Site.Params.qq }}
+        <a id="qq" title="QQ"><i class="iconfont icon-qq"></i></a>
+        {{ end }}
+        {{ if .Site.Params.weixin }}
+        <a id="wxmp" title="微信公众号"><i class="iconfont icon-wechat"></i></a>
+        {{ end }}
+        {{ if .Site.Params.email }}
+        <a id="tomail" title="博主邮箱"><i class="iconfont icon-mail"></i></a>
+        {{ end }}
+        {{ if .Site.Params.github }}
+        <a href="{{ .Site.Params.github }}" target="_blank" title="Github"><i class="iconfont icon-github"></i></a>
+        {{ end }}
+    </div>
+</div>
+
+<script src="{{ "sdk/jquery.min.js" | relURL }}"></script><!--基础依赖放在最前面-->
+<script src="{{ "sdk/fancybox3/jquery.fancybox.min.js" | relURL }}"></script><!--图片灯箱效果-->
+<script src="{{ "sdk/layer/layer.js" | relURL }}"></script>
+{{ if eq .Kind "home" }}
+<script src="{{ "sdk/swiper/swiper-bundle.min.js" | relURL }}"></script>
+<script>
+var bannerSwitch = '{{ .Site.Params.switch | default "off" }}';
+// 初始化轮播图（移除设备判断）
+$(document).ready(function() {
+    if (bannerSwitch === 'on') {
+        var bannerData = JSON.parse(document.getElementById('banner-json').textContent);
+        var swiper = new Swiper('.banner-container', {
+            loop: true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+    }
+});
+</script>
+{{ end }}
+{{ if .IsPage }}
+{{ if .Site.Params.beCode }}
+<!--代码高亮逻辑-->
+<script src="{{ "sdk/highlightjs/highlight.min.js" | relURL }}"></script>
+<script defer>
+document.addEventListener('DOMContentLoaded', function () {
+    const codeBlocks = document.querySelectorAll('pre code');
+    const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                hljs.highlightElement(entry.target);
+                observer.unobserve(entry.target); 
+            }
+        });
+    }, {
+        rootMargin: '0px',
+        threshold: 0.1
+    });
+
+    codeBlocks.forEach(function (codeBlock) {
+        observer.observe(codeBlock); 
+        codeBlock.style.filter = 'none';
+    });
+});
+</script>
+{{ end }}
+
+<!--表情支持-->
+<script src="{{ "js/emoji.js" | relURL }}"></script>
+
+<!--评论无限加载js-->
+<script src="{{ "js/comments.js" | relURL }}"></script>
+
+{{ end }}
+
+<script src="{{ "js/main.js?v=3.6.2" | relURL }}"></script><!--主题js-->
+
+<!-- 版权信息 -->
+<div id="copyright-info" style="display: none;">
+<p>开源不易，请尊重作者版权，保留基本的版权信息。</p>
+</div>
+
+<script type="text/javascript">
+{{ if .Site.Params.qq }}
+$(document).on('click', '#qq', function() {layer.msg('{{ .Site.Params.qq }}',{time:4000});});    
+{{ end }}
+{{ if .Site.Params.weixin }}
+$(document).on('click', '#wxmp', function() {layer.open({type: 1,title: false,closeBtn: 0,shadeClose: true,skin: 'layui-layer-nobg',area: ['auto'], content: '<img id= "mywxmp" style="width:20rem;height:20rem;display:block;" src="{{ .Site.Params.weixin }}">'});});
+{{ end }}
+{{ if .Site.Params.email }}
+$(document).on('click', '#tomail', function() {layer.msg('联系邮箱：{{ .Site.Params.email }}',{time:4000});});    
+{{ end }}
+</script>
+<!--自定义JS代码-->
+{{ if .Site.Params.customJS }}
+{{ .Site.Params.customJS | safeJS }}
+{{ end }}
+</body>
+</html>
