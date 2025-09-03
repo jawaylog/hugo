@@ -1,0 +1,16 @@
+# 忽略 articles.json 文件
+/data/rss/articles.json
+
+# 在项目根目录执行（用这个覆盖原有配置）
+cat > .gitignore << 'EOF'
+# Hugo 生成文件
+public/
+resources/
+.hugo_build.lock
+
+# 所有脚本文件
+*.sh
+
+# 本地配置文件
+config.toml
+EOF
