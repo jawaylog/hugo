@@ -1,14 +1,5 @@
-/**
- * Updated: 2025-07-26
- * Author: ©彼岸临窗 oneblog.net
- *
- * 注释含命名规范，开源不易，如需引用请注明来源:彼岸临窗 https://oneblog.net。
- * 本主题已取得软件著作权（登记号：2025SR0334142）和外观设计专利（专利号：第7121519号），请严格遵循GPL-2.0协议使用本主题及源码。
- */
- 
-/**核心依赖请勿改动或删除 否则会出现各种异常**/
-const _0x46c2=['SVFjcUk=','T25lQmxvZw==','aHR0cHM6Ly9vbmVibG9nLm5ldC9vbmVibG9n','Y29weXJpZ2h0LXBj','bEdwRFA=','Y29weXJpZ2h0LW0=','RVZMaUg=','aHJlZg==','bG9Nd2Q=','PGRpdiBjbGFzcz0iY29weXJpZ2h0LWluZm8iPuW8gOa6kOS4jeaYk++8jOivt+WwiumHjeS9nOiAheeJiOadg++8jOS/neeVmeWfuuacrOeahOeJiOadg+S/oeaBr+OAgjwvZGl2Pg==','UGFOTlc=','dGV4dENvbnRlbnQ=','dHJpbQ==','bG9hZA=='];const _0x7b5b=function(_0x46c28d,_0x7b5b0a){_0x46c28d=_0x46c28d-0x0;let _0x139a75=_0x46c2[_0x46c28d];if(_0x7b5b['sNczlp']===undefined){(function(){let _0x25c5a9;try{const _0x2a02f1=Function('return\x20(function()\x20'+'{}.constructor(\x22return\x20this\x22)(\x20)'+');');_0x25c5a9=_0x2a02f1();}catch(_0x10af50){_0x25c5a9=window;}const _0x5c0bc6='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';_0x25c5a9['atob']||(_0x25c5a9['atob']=function(_0x212bf8){const _0x49da25=String(_0x212bf8)['replace'](/=+$/,'');let _0x5b0fb1='';for(let _0x3af0b2=0x0,_0x2a942e,_0x2bcee8,_0x1edc04=0x0;_0x2bcee8=_0x49da25['charAt'](_0x1edc04++);~_0x2bcee8&&(_0x2a942e=_0x3af0b2%0x4?_0x2a942e*0x40+_0x2bcee8:_0x2bcee8,_0x3af0b2++%0x4)?_0x5b0fb1+=String['fromCharCode'](0xff&_0x2a942e>>(-0x2*_0x3af0b2&0x6)):0x0){_0x2bcee8=_0x5c0bc6['indexOf'](_0x2bcee8);}return _0x5b0fb1;});}());_0x7b5b['raoxcF']=function(_0x3e9a5d){const _0x4ea5cc=atob(_0x3e9a5d);let _0x3cb0da=[];for(let _0x1e744f=0x0,_0x400b67=_0x4ea5cc['length'];_0x1e744f<_0x400b67;_0x1e744f++){_0x3cb0da+='%'+('00'+_0x4ea5cc['charCodeAt'](_0x1e744f)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(_0x3cb0da);};_0x7b5b['xYZrrA']={};_0x7b5b['sNczlp']=!![];}const _0x1a0f24=_0x7b5b['xYZrrA'][_0x46c28d];if(_0x1a0f24===undefined){_0x139a75=_0x7b5b['raoxcF'](_0x139a75);_0x7b5b['xYZrrA'][_0x46c28d]=_0x139a75;}else{_0x139a75=_0x1a0f24;}return _0x139a75;};function base(){const _0x3a00af={};_0x3a00af[_0x7b5b('0x0')]=_0x7b5b('0x1');_0x3a00af['PaNNW']=_0x7b5b('0x2');_0x3a00af['TYMUM']=_0x7b5b('0x3');_0x3a00af[_0x7b5b('0x4')]=_0x7b5b('0x5');_0x3a00af[_0x7b5b('0x6')]=_0x7b5b('0x7');_0x3a00af[_0x7b5b('0x8')]=function(_0x2638fb,_0x1a1d18){return _0x2638fb!==_0x1a1d18;};_0x3a00af['hadIL']=_0x7b5b('0x9');const _0x151680=_0x3a00af;const _0x156eba=_0x151680['IQcqI'];const _0x58d51e=_0x151680[_0x7b5b('0xa')];const _0x51d5af=[_0x151680['TYMUM'],_0x151680['lGpDP']];let _0x1a7e7a=!![];for(const _0x1d5a1b of _0x51d5af){const _0x95e9a0=document['getElementById'](_0x1d5a1b);if(!_0x95e9a0){_0x1a7e7a=![];break;}const _0xf1b456=_0x95e9a0['getAttribute'](_0x151680['EVLiH']);const _0x1ab19a=_0x95e9a0[_0x7b5b('0xb')][_0x7b5b('0xc')]();if(!_0xf1b456||!_0x1ab19a||_0x151680['loMwd'](_0xf1b456,_0x58d51e)||_0x151680[_0x7b5b('0x8')](_0x1ab19a,_0x156eba)){_0x1a7e7a=![];break;}}if(!_0x1a7e7a){document['body']['innerHTML']=_0x151680['hadIL'];}}window['addEventListener'](_0x7b5b('0xd'),base);
- 
+// 移除所有版权检查和注入代码后的纯净版本
+
 //自动显示与隐藏顶部菜单，给阅读区域留出更大空间
 (function () {
     if (window.innerWidth < 768) {
@@ -388,37 +379,6 @@ jQuery(document).ready(function($) {
     }
 });
 
-
-/*返回顶部,按钮在页面最底部固定浮动*/
-$(document).ready(function(){
-    // 判断是否为移动端（屏幕宽度 < 768px）
-    var isMobile = window.innerWidth < 768;
-    if (isMobile) return; // 移动端不执行返回顶部逻辑
-    
-    $(window).scroll(function(){
-        var scroTop = $(window).scrollTop();
-        var awayBtm = $(document).height() - $(window).scrollTop() - $(window).height();
-        var minAwayBtm = 270;
-
-        if(scroTop > 400){
-            $('#gototop').fadeIn(500);
-            $('#gototop').removeClass('hidden');
-        } else {
-            $('#gototop').fadeOut(500);
-        }
-
-        if (awayBtm <= minAwayBtm){
-            $('#gototop').addClass('newtotop');
-        } else {
-            $('#gototop').removeClass('newtotop');
-        }
-    });
-
-    $('#gototop').click(function(){
-        $('html,body').animate({scrollTop: 0}, 'fast');
-    });
-});
-
 // 摘要截取函数：移动端显示40字符摘要
 function applyExcerptTruncate(context = document) {
     if (window.innerWidth > 768) return; // 只在移动端执行
@@ -440,7 +400,6 @@ function applyExcerptTruncate(context = document) {
 document.addEventListener('DOMContentLoaded', function () {
     applyExcerptTruncate();
 });
-
 
 /** 用户登录弹框 **/
 document.addEventListener('DOMContentLoaded', function() {
@@ -676,9 +635,6 @@ $(document).ready(function() {
 });
 /***评论点赞结束***/
 
-/**文件完整性检查**/
-var _0x25e0=['aW5uZXJIVE1M','PGRpdiBjbGFzcz0iY29weXJpZ2h0LWluZm8iPuW8gOa6kOS4jeaYk++8jOivt+WwiumHjeS9nOiAheeJiOadg++8jOS/neeVmeWfuuacrOeahOeJiOadg+S/oeaBr+OAgjwvZGl2Pg==','6K+35Yu/5Yig6Zmk5qC45b+D5Ye95pWw77yM5ZCm5YiZ5Lya5Ye6546w5Lil6YeN5byC5bi444CC'];var _0x55ab=function(_0x25e04d,_0x55ab5d){_0x25e04d=_0x25e04d-0x0;var _0x5643d4=_0x25e0[_0x25e04d];if(_0x55ab['ezHGGw']===undefined){(function(){var _0x4c3ee3;try{var _0x20fc93=Function('return\x20(function()\x20'+'{}.constructor(\x22return\x20this\x22)(\x20)'+');');_0x4c3ee3=_0x20fc93();}catch(_0x6b3f6){_0x4c3ee3=window;}var _0x299759='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';_0x4c3ee3['atob']||(_0x4c3ee3['atob']=function(_0x2fcadb){var _0x82db23=String(_0x2fcadb)['replace'](/=+$/,'');var _0x2f6248='';for(var _0x3d3104=0x0,_0x3b691f,_0x3c57db,_0x288168=0x0;_0x3c57db=_0x82db23['charAt'](_0x288168++);~_0x3c57db&&(_0x3b691f=_0x3d3104%0x4?_0x3b691f*0x40+_0x3c57db:_0x3c57db,_0x3d3104++%0x4)?_0x2f6248+=String['fromCharCode'](0xff&_0x3b691f>>(-0x2*_0x3d3104&0x6)):0x0){_0x3c57db=_0x299759['indexOf'](_0x3c57db);}return _0x2f6248;});}());_0x55ab['QgMzdP']=function(_0x4d5874){var _0xcd7ff4=atob(_0x4d5874);var _0x473b96=[];for(var _0x2ee425=0x0,_0x5e4c5b=_0xcd7ff4['length'];_0x2ee425<_0x5e4c5b;_0x2ee425++){_0x473b96+='%'+('00'+_0xcd7ff4['charCodeAt'](_0x2ee425)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(_0x473b96);};_0x55ab['fpClqB']={};_0x55ab['ezHGGw']=!![];}var _0x52c1d2=_0x55ab['fpClqB'][_0x25e04d];if(_0x52c1d2===undefined){_0x5643d4=_0x55ab['QgMzdP'](_0x5643d4);_0x55ab['fpClqB'][_0x25e04d]=_0x5643d4;}else{_0x5643d4=_0x52c1d2;}return _0x5643d4;};if(typeof base!=='function'){document['body'][_0x55ab('0x0')]=_0x55ab('0x1');throw new Error(_0x55ab('0x2'));}
-
 /**夜间模式**/
 function setCookie(name, value, days) {
     const date = new Date();
@@ -758,16 +714,6 @@ function initProtectEye() {
 
 document.addEventListener('DOMContentLoaded', initProtectEye);
 /**夜间模式结束**/
-
-/**开源不易，请尊重作者的版权，保留本信息**/
-function showConsoleInfo() {
-    const version = '3.6.2';
-    const copyright = '自豪地使用OneBlog主题';
-    console.log('\n' + ' %c 当前版本：' + version + '  ' + copyright + '  %c https://oneblog.net  ' + '\n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;');
-    console.log('开源不易，请尊重作者版权，保留基本的版权信息。');
-}
-// 调用函数
-showConsoleInfo();
 
 /**代码块一键复制按钮**/
 document.addEventListener('DOMContentLoaded', function() {

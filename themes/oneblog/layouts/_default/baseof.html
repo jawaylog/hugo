@@ -1,64 +1,50 @@
-{{ partial "header.html" . }}
-{{ partial "head.html" . }}
-
-<!-- 分类标题区域 -->
-<div class="category-header">
-    <h1 class="category-title">{{ .Title }}</h1>
-    {{ with .Description }}
-    <p class="category-description">{{ . }}</p>
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode | default "zh-CN" }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ block "title" . }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
+    <link rel="dns-prefetch" href="https://at.alicdn.com">
+    <link rel="dns-prefetch" href="https://weavatar.com">
+    {{ if .Site.Params.favicon }}
+    <link rel="shortcut icon" href="{{ .Site.Params.favicon }}" type="image/x-icon" />
     {{ end }}
-    <div class="category-meta">
-        <span>共 {{ len .Pages }} 篇文章</span>
-        <span>最后更新: {{ .Pages.ByDate.Reverse.First.PublishDate.Format ":date_long" }}</span>
-    </div>
-</div>
-
-<!-- 文章列表区域 -->
-{{ $posts := .Pages.ByDate.Reverse }}
-{{ if $posts }}
-    {{ $paginator := .Paginate $posts }}
-    <div class="post-list">
-        {{ range $paginator.Pages }}
-        <article class="post-card">
-            <div class="post-content">
-                <h2 class="post-title">
-                    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-                </h2>
-                
-                {{ $summary := .Summary | replaceRE "<[^>]+>" "" | safeHTML }}
-                <p class="post-summary">{{ $summary | truncate 65 "..." }}</p>
-                
-                <div class="post-meta">
-                    <time datetime="{{ .Date.Format "2006-01-02" }}">
-                        {{ .Date | time.Format ":date_long" }}
-                    </time>
-                    <span class="post-views">{{ .Params.views | default 0 }} 阅读</span>
-                    <span class="post-comments">{{ .Params.comments | default 0 }} 评论</span>
-                </div>
-            </div>
-            
-            {{ $thumbnail := .Params.thumbnail }}
-            {{ if not $thumbnail }}
-                {{ $thumbnail = .Params.image }}
-            {{ end }}
-            
-            {{ if $thumbnail }}
-            <div class="post-thumbnail">
-                <img src="{{ if hasPrefix $thumbnail "http://" | or (hasPrefix $thumbnail "https://") }}{{ $thumbnail }}{{ else }}{{ $thumbnail | relURL }}{{ end }}" 
-                     alt="{{ .Title }}">
-            </div>
-            {{ end }}
-        </article>
-        {{ end }}
-    </div>
-
-    <!-- 分页控件 -->
-    {{ template "_internal/pagination.html" . }}
-{{ else }}
-    <div class="no-posts">
-        <p>暂无该分类下的文章内容</p>
-        <a href="{{ .Site.BaseURL }}" class="btn-back-home">返回首页</a>
-    </div>
-{{ end }}
-
-{{ partial "footer.html" . }}
+    <link href="{{ "sdk/animate.compat.css" | relURL }}" rel="stylesheet"><!--动画效果-->
+    <link href="//at.alicdn.com/t/c/font_3940454_drimor4umam.css" rel="stylesheet"/><!---图标库 iconfont.cn -->
+    <link rel="stylesheet" href="{{ "sdk/fancybox3/jquery.fancybox.min.css" | relURL }}" /><!--灯箱效果-->
+    <link href="{{ "css/main.css" | relURL }}" rel="stylesheet"/><!--主题核心样式-->
+    <link href="{{ "css/m.css" | relURL }}" rel="stylesheet"/><!--移动端样式-->
+    <style>
+        :root {
+            --theme-color: {{ .Site.Params.themeColor | default "#ff5050" }};
+            --background-color: #f7f7f7;
+            --black: #121212;
+            --white: #ffffff;
+            --blue: #0c498b;
+            --red: #dd1111;
+            --grey: color-mix(in srgb, var(--black) 55%, white);
+            --line: color-mix(in srgb, var(--black) 10%, white);
+            --bg-input: color-mix(in srgb, var(--black) 3%, white);
+            --bg-button: color-mix(in srgb, var(--theme-color) 90%, black);
+        }
+        {{ .Site.Params.customCSS | safeCSS }}
+    </style>
+    
+    {{ block "header" . }}{{ end }}
+</head>
+<body>
+    <div class="main">
+        {{ partial "head.html" . }}
+        <div id="posts" class="blur">
+        <main>
+            {{ block "main" . }}{{ end }}
+        </main>
+        {{ partial "footer.html" . }}
+   
+    <script src="{{ "sdk/jquery.min.js" | relURL }}"></script><!--基础依赖-->
+    <script src="{{ "sdk/fancybox3/jquery.fancybox.min.js" | relURL }}"></script><!--图片灯箱-->
+    <script src="{{ "js/main.js" | relURL }}"></script><!--主题js-->
+    {{ block "scripts" . }}{{ end }}
+</div> </body>
+</html>

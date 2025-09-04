@@ -98,12 +98,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 {{ end }}
 
-<script src="{{ "js/main.js?v=3.6.2" | relURL }}"></script><!--主题js-->
+<script src="{{ "js/main.js" | relURL }}"></script><!--主题js-->
 
-<!-- 版权信息 -->
-<div id="copyright-info" style="display: none;">
-<p>开源不易，请尊重作者版权，保留基本的版权信息。</p>
-</div>
+>
 
 <script type="text/javascript">
 {{ if .Site.Params.qq }}
