@@ -24,7 +24,7 @@ dataDir = "data"
   description = 'A simple and fast blog framework written in Go.'
   toc = true
   mainSections = ['posts','memo']
-  subtitle = '用文字与照片记录生活点滴'
+  subtitle = '用文字与照片记录生活点点滴滴'
   memosAPI = "https://m.xieha.cn/api/v1/memo?creatorId=1&rowStatus=NORMAL&limit=1"
   showAuthor = true
   authorName = 'welog'
