@@ -1,3 +1,10 @@
+ <div class="copyright m">
+        <div class="switch">
+            夜间模式<input type="checkbox" id="night1" class="switchBtn"><label for="night1" class="switchBtn"></label>
+        </div>
+        <span>©{{ if .Site.Params.webtime }}{{ .Site.Params.webtime }}-{{ end }}{{ now.Year }}&nbsp;&nbsp;<a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a></span>
+        <span>Theme by <a id="copyright-m" href="https://oneblog.net/oneblog" title="自豪地使用OneBlog主题" target="_blank">OneBlog</a></span>
+    </div>
 <script src="{{ "js/dongtai.js" | relURL }}"></script>
 <div class="footer pc">
     <div class="navigation"><!--底部菜单导航-->

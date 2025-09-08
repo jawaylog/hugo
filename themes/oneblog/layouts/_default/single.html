@@ -78,7 +78,7 @@
     <div class="post_content padding blur animated fadeIn">
         {{ .Content | replaceRE "<img src=\"([^\"]+)\"" "<img src=\"$1\" data-fancybox=\"gallery\"" | safeHTML }}
         <div class="cc-say">
-            本文著作权归作者 [&nbsp;<span>{{ .Params.author | default .Site.Author.name }}</span>&nbsp;] 享有，未经作者书面授权，禁止转载，封面图片来源于 [&nbsp;<span>{{ .Params.origin | default "互联网" }}</span>&nbsp;] ，本文仅供个人学习、研究和欣赏使用。如有异议，请联系博主及时处理。
+            本文著作权归作者 [welog] 享有，未经作者书面授权，禁止转载，封面图片来源于 [&nbsp;<span>{{ .Params.origin | default "互联网" }}</span>&nbsp;] ，本文仅供个人学习、研究和欣赏使用。如有异议，请联系博主及时处理。
         </div>
         {{ if .Params.tags }}
         <div class="tags">

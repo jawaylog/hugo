@@ -1,41 +1,97 @@
-<article class="block--item block--item__status" itemtype="http://schema.org/Article" itemscope="itemscope"
-    data-id="{{ .File.UniqueID}}">
-    <div class="status--icon">
-        <svg viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
-            <path
-                d="M9.563 8.469l-0.813-1.25c-5.625 3.781-8.75 8.375-8.75 12.156 0 3.656 2.688 5.375 4.969 5.375 2.875 0 4.906-2.438 4.906-5 0-2.156-1.375-4-3.219-4.688-0.531-0.188-1.031-0.344-1.031-1.25 0-1.156 0.844-2.875 3.938-5.344zM21.969 8.469l-0.813-1.25c-5.563 3.781-8.75 8.375-8.75 12.156 0 3.656 2.75 5.375 5.031 5.375 2.906 0 4.969-2.438 4.969-5 0-2.156-1.406-4-3.313-4.688-0.531-0.188-1-0.344-1-1.25 0-1.156 0.875-2.875 3.875-5.344z">
-            </path>
-        </svg>
-    </div>
-    
-    <div class="block--addon">
-        <div class="meta">
-            <div class="block--snippet" itemprop="about">
-                {{ .Summary | plainify | truncate 120 }}
-            </div>
-            <div class="block--meta">
-                <time datetime='{{.Date.Format "2006-01-02 15:04:01" }}' class="humane--time">{{ .Date
-                    | time.Format
-                    ":date_long"
-                    }}</time>
-                {{ if .GetTerms "categories"}}
-                <span class="sep"></span>
-                {{ range (.GetTerms "categories") }}
-                <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
-                {{ end }}
-                {{ end }}
-                {{ if .Site.Params.post_view }}
-                <span class="sep"></span>
-                <span class="article--views"></span>
-                {{ end }}
-                <a datetime='{{.Date.Format "2006-01-02 15:04:01" }}' class="status--link" href="{{ .Permalink }}"
-                    itemprop="datePublished"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none"
-                        viewBox="0 0 12 12" data-settings-arrow="true">
-                        <path fill="#757575"
-                            d="M.646 10.646a.5.5 0 0 0 .708.708zM11 1h.5a.5.5 0 0 0-.5-.5zm-.5 7a.5.5 0 0 0 1 0zM4 .5a.5.5 0 0 0 0 1zM1.354 11.354l10-10-.708-.708-10 10zM10.5 1v7h1V1zM4 1.5h7v-1H4z">
-                        </path>
-                    </svg></a>
-            </div>
+{{ partial "header.html" . }}
+
+<div class="main">
+    {{ partial "head.html" . }}
+
+    {{ if eq .Kind "home" }}
+        {{ if eq .Site.Params.switch "on" }}
+            <div class="banner-container blur"></div>
+            
+            <script id="banner-json" type="application/json">
+                [
+                    {{ $banners := default slice .Site.Params.banner }}
+                    {{ range $index, $item := $banners }}
+                    {
+                        "link": "{{ $item.link }}",
+                        "title": "{{ $item.title }}",
+                        "thumb": "{{ $item.thumb | relURL }}"
+                    }{{ if ne $index (sub (len $banners) 1) }},{{ end }}
+                    {{ end }}
+                ]
+            </script>
+            <!-- 加载轮播图CSS -->
+            <link rel="stylesheet" href="{{ "sdk/swiper/swiper-bundle.min.css" | relURL }}" /><!--轮播图-->
+        {{ end }}
+    {{ end }}
+
+    {{ $posts := .Pages }} <!-- 修改：获取当前分类下的所有文章 -->
+{{ if $posts }}
+<div id="posts" class="blur">
+  {{ $paginator := .Paginate $posts }}
+  {{ range $paginator.Pages }}
+            <a href="{{ .Permalink }}" class="post" >
+                <h1 class="animated fadeInUp">
+                    {{ .Title }}
+                </h1>
+                <div class="post_preview animated fadeInUp">
+                    <div class="post_content_wrapper">
+                        <!-- 仅保留纯文本摘要，移除所有HTML标签 -->
+                        {{ $summary := .Summary | replaceRE "<[^>]+>" "" | safeHTML }}
+                        <p>{{ $summary | truncate 65 "..." }}</p>
+                    </div>
+                    
+                    {{ $thumbnail := .Params.thumbnail }}
+                    <!-- 兼容旧主题的image参数 -->
+                    {{ if not $thumbnail }}
+                        {{ $thumbnail = .Params.image }}
+                    {{ end }}
+                    <!-- 从文章内容提取图片 -->
+                    {{ if not $thumbnail }}
+                        {{ $images := findRE "<img src=[\\\"']([^\\\"']+)[\\\"']" .Content 1 }}
+                        {{ if $images }}
+                            {{ $thumbnail = index $images 0 | replaceRE "<img src=[\\\"']([^\\\"']+)[\\\"']" "$1" }}
+                        {{ end }}
+                    {{ end }}
+                    
+                    {{ if $thumbnail }}
+                    <div class="post_img_wrapper">
+                        {{ if hasPrefix $thumbnail "http://" | or (hasPrefix $thumbnail "https://") }}
+                            <!-- 绝对URL -->
+                            <div class="post_img lazy-load" data-src="{{ $thumbnail }}" style="display:block !important;">
+                            </div>
+                        {{ else }}
+                            <!-- 相对URL -->
+                            <div class="post_img lazy-load" data-src="{{ $thumbnail | relURL }}" style="display:block !important;">
+                            </div>
+                        {{ end }}
+                    </div>
+                    {{ end }}
+                </div>
+                <div class="post_meta animated fadeInUp">
+                    <span class="post-date" data-date="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date | time.Format ":date_long" }}</span>
+                    <span class="post-date" data-date="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date | time.Format ":date_long" }}</span>
+                    <span>{{ .Params.views | default 0 }}&nbsp;阅读</span>
+                    <span>{{ .Params.comments | default 0 }}&nbsp;评论</span>
+                </div>
+            </a>
+            {{ end }}
         </div>
-    </div>
-</article>
+        <!--分页-->
+        <div class="load blur" id="loadmore">
+            {{ template "_internal/pagination.html" . }}
+        </div>
+    {{ else }}
+        <div class="nodata blur">
+            <img src='{{ "img/nodata.svg" | relURL }}'></img>
+            <span>暂无文章内容</span>
+            <a href="{{ .Site.BaseURL }}">返回首页</a>
+        </div>
+    {{ end }}
+</div>
+
+<!--返回顶部-->
+<a id="gototop" class="hidden pc"><i class="iconfont icon-up"></i></a>
+
+
+
+{{ partial "footer.html" . }}

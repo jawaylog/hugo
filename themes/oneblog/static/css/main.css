@@ -320,6 +320,7 @@ th {
     background: var(--white);
 }
 
+
 .header {
     display: flex;
     flex-direction: row-reverse;
@@ -332,6 +333,7 @@ th {
     justify-content: space-between;
     background: var(--white);
     padding: 40px 60px 20px;
+
 }
 
 .header i {
@@ -382,6 +384,7 @@ th {
         list-style: none;
         box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
         box-sizing: initial;
+
     }
 
     .menu.active {
@@ -404,6 +407,7 @@ th {
         user-select: none;
         position: relative;
         cursor: pointer;
+        white-space: nowrap !important;
     }
 
     .menu.active li:hover {
@@ -1122,6 +1126,7 @@ a.post {
 .post_content {
     word-break: break-all;
     margin-top: 2em;
+    background: var(--white);
 }
 
 .post_content img {

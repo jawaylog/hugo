@@ -1,0 +1,119 @@
+{{ partial "header.html" . }}
+
+
+<div class="memo"> 
+    <!-- 导航栏 -->
+    <div class="navbar">
+        {{ partial "head2.html" . }}
+    </div>
+
+    <!-- PC端头部图片区域 -->
+    {{ $headerImage := "" }}
+    {{ if .Site.Params.memoHeader }}
+        {{ $headerImage = .Site.Params.memoHeader }}
+    {{ else if .Site.Params.banner }}
+        {{ $firstBanner := index .Site.Params.banner 0 }}
+        {{ $headerImage = $firstBanner.thumb }}
+    {{ else }}
+        {{ $headerImage = "/images/1.png" | relURL }}
+    {{ end }}
+    
+    <div class="pc memo_thumb blur">
+        <!-- 返回按钮 -->
+        <a href="javascript:history.back()" class="back-button">
+            <i class="iconfont icon-left">返回</i>
+        </a>
+        
+        <!-- 背景图片容器 -->
+        <div class="memo_bg lazy-load" data-src="{{ $headerImage | relURL }}"></div>
+        
+        <!-- PC端内容 -->
+        <div class="memo_header padding animated fadeIn">
+            <h1>随笔录</h1>   
+            <div class="memo_meta">
+                <span>记录生活点滴</span>
+                <span>/</span>
+                <span>分享思考感悟</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 移动端头部图片区域 -->
+    <div class="m">
+        <div class="memo_thumb blur">
+            <!-- 返回按钮 -->
+            <a href="javascript:history.back()" class="back-button">
+                <i class="iconfont icon-left">返回</i>
+            </a>
+            
+            <!-- 背景图片容器 -->
+            <div class="memo_bg lazy-load" data-src="{{ $headerImage | relURL }}"></div>
+            
+            <!-- 移动端内容 - 与PC端相同的布局 -->
+            <div class="memo_header padding animated fadeIn">
+                <h1>随笔录</h1>   
+                <div class="memo_meta">
+                    <span>记录生活点滴</span>
+                    <span>/</span>
+                    <span>分享思考感悟</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ $posts := .Pages }}
+    {{ if $posts }}
+        <div id="memo">
+            {{ $paginator := .Paginate $posts }}
+            {{ range $paginator.Pages }}
+                <div class="memocard">
+                    <a href="{{ .Permalink }}" class="memo-link">
+                        <div class="memo_preview animated fadeInUp">
+                            <div class="memo_content_wrapper">
+                                {{ $summary := .Summary | replaceRE "<[^>]+>" "" | safeHTML }}
+                                <p>{{ $summary | truncate 100 "..." }}</p>
+                            </div>
+                        </div>
+                        <div class="card_meta animated fadeInUp">
+                            <span>发布于：<span class="memo-date" data-date="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date | time.Format ":date_long" }}</span></span>
+                            <span>
+                                {{ range (.GetTerms "categories") }}
+                                    {{ .LinkTitle }}
+                                {{ end }}
+                            </span>
+                        </div>
+                    </a>
+                </div>
+            {{ end }}
+        </div>
+        
+        <div class="load blur" id="loadmore">
+            {{ template "_internal/pagination.html" . }}
+        </div>
+    {{ else }}
+        <div class="nodata blur">
+            <img src='{{ "img/nodata.svg" | relURL }}' alt="暂无内容">
+            <span>暂无文章内容</span>
+            <a href="{{ .Site.BaseURL }}">返回首页</a>
+        </div>
+    {{ end }}
+</div>
+
+<!--返回顶部-->
+<a id="gototop" class="hidden pc"><i class="iconfont icon-up"></i></a>
+
+<script>
+    // 懒加载背景图片
+    document.addEventListener('DOMContentLoaded', function() {
+        const lazyBackgrounds = document.querySelectorAll('.lazy-load');
+        
+        lazyBackgrounds.forEach(function(bg) {
+            const src = bg.getAttribute('data-src');
+            if (src) {
+                bg.style.backgroundImage = `url(${src})`;
+            }
+        });
+    });
+</script>
+
+{{ partial "footer.html" . }}

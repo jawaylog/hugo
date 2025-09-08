@@ -20,6 +20,7 @@ icp = "粤ICP备2024299131号"         # 备案号
 wa = ""   # 公安备案号
 logo = "/img/logo.png"                       # 网站logo
 logoWhite = "/img/logo.png"                  # 白色logo（夜间模式用）
+author = "welog"
 webthumb = ""                   # 网站缩略图（用于OGP）
 imgSmall = "?imageView2/1/w/300/h/200/q/75"  # 缩略图处理参数
 beCode = "on"                   # 是否开启代码高亮
@@ -27,6 +28,8 @@ customCSS = ""                  # 自定义CSS
 customJS = ""                   # 自定义JS
 disqusShortname = ""            # Disqus评论系统（留空则关闭）
 defaultThumbnailField = "image"  # 强制使用image字段作为封面图
+memoHeader = "/images/1.jpg"  # 添加这行
+
 
 # 社交链接
 [params.contact]
@@ -76,17 +79,23 @@ url = "/welog"
 weight = 4
 params.icon = "icon-archives"
 
+[[menu.footer]]
+name = "首页"
+url = "/"
+weight = 5
+params.icon = "icon-archives"
+
 
 [[menu.footer]]
 name = "朋友圈"
 url = "/rss"
-weight = 5
+weight = 6
 params.icon = "icon-archives"
 
 [[menu.footer]]
 name = "伙伴们"
 url = "/friends"
-weight = 6
+weight = 7
 params.icon = "icon-archives"
 
 [[menu.footer]]

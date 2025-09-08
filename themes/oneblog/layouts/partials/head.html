@@ -18,11 +18,15 @@
     </div>
 </div>
 
+<!-- 菜单遮罩层 -->
+<div class="menu-overlay"></div>
+
 <!--顶部菜单-->
+
 <div class="header bg-white">
-    <i class="iconfont icon-nav"></i>
+    <i class="iconfont icon-nav" onclick="openMenu()"></i>
     <a class="logo" id="logo" href="{{ .Site.BaseURL }}" style="background-image:url('{{ .Site.Params.logo | default ("img/logo.svg" | relURL) }}')"></a>
-    <i id="search-btn" class="iconfont icon-search m"></i>
+    <i id="search-btn" class="iconfont icon-search m" onclick="openSearch()"></i>
 </div>
 
 <!--搜索弹框-->
@@ -63,3 +67,5 @@
     " {{ .Date.Year }}年发布的文章&nbsp;&nbsp;共{{ with .Data.Pages }}{{ len . }}{{ else }}0{{ end }}篇 "
     {{ end }}
 </div>
+
+
