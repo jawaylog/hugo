@@ -14,3 +14,14 @@ resources/
 # 本地配置文件
 config.toml
 EOF
+
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 编辑器文件
+.vscode/
+.idea/
+*.swp
+*.swo

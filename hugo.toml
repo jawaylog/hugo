@@ -13,7 +13,7 @@ pagerSize = 10
 [params]
 themeColor = "#ff5050"          # 主题主色调
 logo_alt = "微影随行"     # Logo替代文本（可选）
-slogan = "记录生活-记录美好"  # 网站副标题
+slogan = "记录生活-分享生活点点滴滴"  # 网站副标题
 switch = "on"                   # 是否开启首页banner
 webtime = "2023"                # 网站创建年份
 icp = "粤ICP备2024299131号"         # 备案号

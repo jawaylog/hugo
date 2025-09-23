@@ -1,34 +1,36 @@
 #!/bin/bash
-# 部署到 GitHub Pages 脚本
+# 部署整个Hugo项目到GitHub脚本
 
-# 错误时终止脚本
-set -e
+set -e  # 错误时终止脚本
 
-echo "➤ 1. 清理旧构建文件..."
+# 颜色定义
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+echo -e "${GREEN}➤ 1. 清理旧构建文件...${NC}"
 rm -rf public
 
-echo "➤ 2. 使用Hera主题构建网站..."
+echo -e "${GREEN}➤ 2. 使用Hera主题构建网站（本地测试用）...${NC}"
 hugo -t oneblog --minify
 
- #echo "➤ 3. 进入public目录..."
- #cd public
+echo -e "${GREEN}➤ 3. 初始化Git仓库（如果不存在）...${NC}"
+if [ ! -d ".git" ]; then
+    git init
+fi
 
-echo "➤ 4. 初始化Git仓库..."
-git init
-
-echo "➤ 5. 添加所有文件到暂存区..."
+echo -e "${GREEN}➤ 4. 添加所有文件到暂存区...${NC}"
 git add -A
 
-echo "➤ 6. 提交更改..."
+echo -e "${GREEN}➤ 5. 提交更改...${NC}"
 msg="自动部署: $(date '+%Y-%m-%d %H:%M:%S')"
 if [ $# -eq 1 ]; then
   msg="$1"
 fi
-git commit -m "$msg"
+git commit -m "$msg" || echo -e "${YELLOW}⚠️ 没有更改可提交${NC}"
 
-echo "➤ 7. 推送到GitHub Pages..."
-# 注意：GitHub Pages现在默认使用main分支
-git push -f git@github.com:jawaylog/hugo.git HEAD:master
+echo -e "${GREEN}➤ 6. 推送到GitHub仓库...${NC}"
+git push -f git@github.com:jawaylog/jawaylog.github.io.git HEAD:master
 
-echo "➤ 8. 部署完成!"
-cd ..
+echo -e "${GREEN}✅ 整个Hugo项目部署完成!${NC}"
