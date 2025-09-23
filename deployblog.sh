@@ -31,6 +31,6 @@ fi
 git commit -m "$msg" || echo -e "${YELLOW}⚠️ 没有更改可提交${NC}"
 
 echo -e "${GREEN}➤ 6. 推送到GitHub仓库...${NC}"
-git push -f git@github.com:jawaylog/jawaylog.github.io.git HEAD:master
+git push -f git@github.com:jawaylog/hugo.git HEAD:master
 
 echo -e "${GREEN}✅ 整个Hugo项目部署完成!${NC}"
