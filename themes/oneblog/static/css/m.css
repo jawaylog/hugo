@@ -329,7 +329,7 @@
 
   /**首页文章列表**/
   #posts {
-    padding: 0 30px;
+    padding: 0 8px;
   }
 
   /**通用文章列表**/
@@ -340,7 +340,7 @@
   .post h1 {
     letter-spacing: 1px;
     font-size: 18px;
-    margin: 0 0 12px 0;
+    margin: 0 0 10px 0;
   }
 
   .post_preview p {
@@ -354,7 +354,7 @@
     height: auto;         /* 高度自动 */
     min-height: 60px;     /* 保留最小高度 */
     border-radius: 3px;
-    gap: 555px;
+    gap: 55px;
   }
 
   .post_meta {
