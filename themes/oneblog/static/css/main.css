@@ -639,13 +639,13 @@ a.post {
     align-items: center;
     word-break: break-all;
     width: 100%;
-    height: 96px; /* 固定高度，确保文章列表高度一致 */
+    height: 100px; /* 固定高度，确保文章列表高度一致 */
 }
 
 .post_content_wrapper {
     flex: 1;
     padding-right: 20px;
-    max-height: 120px; /* 增加最大高度防止文字被遮挡 */
+    max-height: 100px; /* 增加最大高度防止文字被遮挡 */
     overflow: hidden; /* 超出部分隐藏 */
 }
 
@@ -660,7 +660,7 @@ a.post {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
-    max-height: 120px; /* 增加最大高度 */
+    max-height: 100px; /* 增加最大高度 */
     overflow: hidden;
 }
 
@@ -693,8 +693,8 @@ a.post {
 }
 
 .post_meta {
-    padding: 0 0 15px;
-    margin-top: 10px;
+    padding: 0 0 10px;
+    margin-top: 5px;
 }
 
 .post_meta span {
@@ -2213,12 +2213,12 @@ code.hljs {
     }
 
     .post_preview {
-        height: 80px;
+        height: 100px;
         align-items: center;
     }
 
     .post_content_wrapper {
-        width: 65%;
+        width: 75%;
         max-height: 80px;
         overflow: hidden;
         display: -webkit-box;
@@ -2227,7 +2227,7 @@ code.hljs {
     }
 
     .post_img_wrapper {
-        width: 35%;
+        width: 25%;
         height: 100% !important;
         padding-bottom: 0 !important;
         align-self: center;
@@ -2252,7 +2252,7 @@ code.hljs {
     /* 图片右间距调整 */
     .post_content img {
         max-width: 90%;
-        margin: 15px auto 15px 0;
+        margin: 10px auto 10px 0;
     }
 
     /* 触发CSS重绘，解决缓存问题 */
@@ -2274,7 +2274,7 @@ code.hljs {
     }
     
     .post_preview {
-        height: 196px !important;
+        height: 100px !important;
     }
     
     .post_content_wrapper {

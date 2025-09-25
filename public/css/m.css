@@ -354,7 +354,7 @@
     height: auto;         /* 高度自动 */
     min-height: 60px;     /* 保留最小高度 */
     border-radius: 3px;
-    gap: 55px;
+    gap: 5px;
   }
 
   .post_meta {
