@@ -2208,39 +2208,42 @@ code.hljs {
 
     /* 文章列表优化 */
     .post {
-        margin-bottom: 8px;
+        margin-bottom: 2px;
         padding: 8px;
     }
 
     .post_preview {
-        height: 100px;
+        height: 80px;
         align-items: center;
     }
 
     .post_content_wrapper {
-        width: 75%;
+        width: 85%;
         max-height: 80px;
         overflow: hidden;
         display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
+        padding-right: 0; /* 移除右侧内边距 */
     }
 
     .post_img_wrapper {
-        width: 25%;
+        width: 15%;
         height: 100% !important;
         padding-bottom: 0 !important;
         align-self: center;
         display: flex;
         align-items: center;
         justify-content: center;
+        margin-right: 0; /* 移除右侧外边距 */
     }
 
     .post_img {
-        height: 70px !important;
+        height: 65px !important;
         width: auto;
-        margin: 0;
+        margin: 8px 8px;
         border-radius: 8px;
+        margin: 5px; /* 减小图片外边距 */
     }
 
     .post_preview p {
