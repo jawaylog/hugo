@@ -2154,8 +2154,8 @@ code.hljs {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px;
-    padding: 20px 0;
+    gap: 6px;
+    padding: 12px 0;
     margin: 0;
 }
 
@@ -2167,7 +2167,7 @@ code.hljs {
 .pagination a,
 .pagination span {
     display: inline-block;
-    padding: 8px 14px;
+    padding: 6px 14px;
     background-color: var(--bg-input);
     border-radius: 4px;
     color: var(--color);
